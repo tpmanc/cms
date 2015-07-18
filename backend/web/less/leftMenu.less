@@ -1,0 +1,80 @@
+.icon-vertical-align {
+	display: table-cell;
+	vertical-align: middle;
+	font-size: 1.2rem;
+	padding-right: 0.8rem;
+}
+
+nav {
+	position: fixed;
+	width: @menuWidth;
+	height: 100%;
+	background: @menuBg;
+	color: @menuTextColor;
+	overflow: hidden;
+	box-shadow: 2px 0 5px #9D9D9D;
+
+	.user {
+		display: table;
+		width: 100%;
+		position: relative;
+		font-size: 1.5rem;
+		padding: 0.8rem;
+		border-bottom: 1px solid #000;
+		
+		.material-icons {
+			.icon-vertical-align;
+			font-size: 2rem;
+		}
+		
+		.settings {
+			display: table-cell;
+			vertical-align: middle;
+			width: 2rem;
+			color: #FFF;
+			text-decoration: none;
+			cursor: pointer;
+			padding: 0.3rem;
+			border-radius: 5rem;
+			
+			&:hover, &:focus {
+				background: @menuBgHover;
+			}
+					
+			.material-icons {
+				.icon-vertical-align;
+				font-size: 1.5rem;
+				padding-right: 0;
+			}
+		}
+	}
+	
+	ul {
+		height: 100%;
+		overflow: auto;
+		
+		li {
+			font-size: 1rem;
+			
+			&:hover {
+				background: @menuBgHover;
+			}
+
+			a {
+				display: table;
+				width: 100%;
+				color: @menuTextColor;
+				padding: 0.8rem;
+				
+				&:hover, &:focus {
+					color: @menuTextColor;
+					text-decoration: none;
+				}
+
+				.material-icons {
+					.icon-vertical-align;
+				}
+			}
+		}
+	}
+}

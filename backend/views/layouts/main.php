@@ -15,55 +15,41 @@ AppAsset::register($this);
 <html lang="<?= Yii::$app->language ?>">
 <head>
     <meta charset="<?= Yii::$app->charset ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
 <body>
 <?php $this->beginBody() ?>
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-        <header class="mdl-layout__header">
-            <div class="mdl-layout__header-row">
-                <span class="mdl-layout-title">Панель администратора</span>
-                <div class="mdl-layout-spacer"></div>
-                <nav class="mdl-navigation mdl-layout--large-screen-only">
-                    <a class="mdl-navigation__link" href=""><i class="material-icons">description</i> Страницы</a>
-                    <a class="mdl-navigation__link" href=""><i class="material-icons">format_size</i> Статьи</a>
 
-                    <button id="profile-btn" class="mdl-button mdl-js-button mdl-button--icon">
-                        <i class="material-icons">person</i>
-                    </button>
-                    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="profile-btn">
-                        <li disabled class="mdl-menu__item">admin</li>
-                        <li class="mdl-menu__item">Профиль</li>
-                        <li class="mdl-menu__item">Выйти</li>
-                    </ul>
-
-                </nav>
-            </div>
-        </header>
-        <main class="mdl-layout__content">
-            <div class="page-content">
-                <?= Breadcrumbs::widget([
-                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                ]) ?>
-
-                <?= $content ?>
-
-                <footer class="mdl-mini-footer">
-                    <div class="mdl-mini-footer--left-section">
-                        <div class="mdl-logo">Панель администратора</div>
-                        <ul class="mdl-mini-footer--link-list">
-                            <li><?= Yii::powered() ?></li>
-                        </ul>
-                    </div>
-                </footer>
-
-            </div>
-        </main>
+<nav>
+    <div class="user">
+        <i class="material-icons">account_circle</i> <?= Yii::$app->user->identity->username?> (выйти)
     </div>
+    <ul>
+        <li><a href="#"><i class="material-icons">insert_drive_file</i> Страницы</a></li>
+        <li><a href="#"><i class="material-icons">format_align_center</i> Статьи</a></li>
+        <li><a href="#"><i class="material-icons">list</i> Категории</a></li>
+        <li><a href="#"><i class="material-icons">local_grocery_store</i> Товары</a></li>
+        <li><a href="#"><i class="material-icons">settings_ethernet</i> UML / XML</a></li>
+        <li><a href="#"><i class="material-icons">textsms</i> Отзывы</a></li>
+        <li><a href="#"><i class="material-icons">group</i> Пользователи</a></li>
+    </ul>
+</nav>
 
+<div class="wrapper">
+
+    <?= Breadcrumbs::widget([
+        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+    ]) ?>
+
+    <?= $content ?>
+
+    <footer>
+        <?= Yii::powered() ?>
+    </footer>
+</div>
     <?php $this->endBody() ?>
 </body>
 </html>
