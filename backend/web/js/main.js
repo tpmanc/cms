@@ -50,8 +50,19 @@ $(function(){
                     };
                 }
             });
-            console.log(arr);
-            // NProgress.start();
+            var csrfToken = $('meta[name="csrf-token"]').attr("content");
+            $.ajax({
+                type: "POST",
+                url: "http://cms/backend/web/index.php?r=ajax/save-dashboard",
+                data: {"info": JSON.stringify(arr), _csrf: csrfToken},
+                dataType: 'json',
+                beforeSend: function(){
+                    NProgress.start();
+                },
+                success: function(msg){
+                    NProgress.done();
+                }
+             });
         } else {
             tileSort.addClass('editable').sortable("enable");
             $(this).html('done');
@@ -185,7 +196,7 @@ function getColorClass(classesString) {
 
 function getTileSize(classesString, colors) {
     var classes = classesString.split(/\s+/);
-    var tileSize = 'small';
+    var tileSize = '';
     $.each(classes, function(i, e){
         if (e != 'tile' && 
             e != 'middle' && 

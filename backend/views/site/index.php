@@ -5,35 +5,24 @@ $this->title = 'CMS';
 ?>
 
 <div class="flexbox" id="tile-sort">
-    <div class="group-separator">
-        <div class="title">Group 1</div>
-    </div>
-    <a href="#" class="tile purple">
-        <div class="tile-content"><img src="http://ura-mastera.ru/edit/m_edit_menu/img/70.jpg" alt=""></div>
-        <div class="title">редактор доставки</div>
-    </a>
-    <a class="tile lightgreen">
-        <div class="title">TITLE</div>
-    </a>
-    <a class="tile yellow">
-        <div class="title">TITLE</div>
-    </a>
-    <a class="tile big lightblue">
-        <div class="title">TITLE</div>
-    </a>
-    <a class="tile middle blue">
-        <div class="title">TITLE</div>
-    </a>
-    <a class="tile darkorange">
-        <div class="title">TITLE</div>
-    </a>
-
-    <div class="group-separator">
-        <div class="title">Group 2</div>
-    </div>
-    <a class="tile middle brown">
-        <div class="title">TITLE</div>
-    </a>
+    <?php if (!empty($dashboardInfo)) { ?>
+        <?php foreach ($dashboardInfo as $elem) { ?>
+            <?php if ($elem['type'] === 'separator') { ?>
+                <div class="group-separator">
+                    <div class="title"><?= $elem['title']?></div>
+                </div>
+            <?php } elseif($elem['type'] === 'tile') { ?>
+                <a href="<?= $elem['url']?>" class="tile <?= $elem['size']?> <?= $elem['color']?>">
+                    <div class="tile-content">
+                        <?php if ($elem['img'] !== '') { ?>
+                            <img src="<?= $elem['img']?>" alt="">
+                        <?php } ?>
+                    </div>
+                    <div class="title"><?= $elem['title']?></div>
+                </a>
+            <?php } ?>
+        <?php } ?>
+    <?php } ?>
 
     <div class="tile-settings" id="tileSettings">
         <div class="title">Элементы</div>

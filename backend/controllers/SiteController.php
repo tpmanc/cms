@@ -6,6 +6,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use common\models\LoginForm;
 use yii\filters\VerbFilter;
+use backend\models\UserDashboard;
 
 /**
  * Site controller
@@ -55,7 +56,10 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        $dashboardInfo = UserDashboard::find()->where(['userId' => Yii::$app->user->identity->id])->one();
+        return $this->render('index', [
+            'dashboardInfo' => unserialize($dashboardInfo->items),
+        ]);
     }
 
     public function actionLogin()
