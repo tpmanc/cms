@@ -1,8 +1,54 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto&subset=latin,cyrillic);
 @import "cssReseat.less";
 @import "bootstrap/bootstrap.less";
+@import "plugins/nprogress.less";
 
 @import "variables.less";
+
+.colors-list {
+	&.blue {
+		background: rgb(63, 81, 181);
+	}
+	&.lightblue {
+		background: rgb(33, 150, 243);
+	}
+	&.aqua {
+		background: rgb(0, 188, 212);
+	}
+	&.green {
+		background: rgb(76, 175, 80);
+	}
+	&.lightgreen {
+		background: rgb(139, 195, 74);
+	}
+	&.yellow {
+		background: rgb(255, 235, 59);
+	}
+	&.darkyellow {
+		background: rgb(255, 193, 7);
+	}
+	&.orange {
+		background: rgb(255, 152, 0);
+	}
+	&.brown {
+		background: rgb(121, 85, 72);
+	}
+	&.darkorange {
+		background: rgb(255, 87, 34);
+	}
+	&.red {
+		background: rgb(244, 67, 54);
+	}
+	&.pink {
+		background: rgb(233, 30, 99);
+	}
+	&.purple {
+		background: rgb(103, 58, 183);
+	}
+	&.ligthpurple {
+		background: rgb(156, 39, 176);
+	}
+}
 
 html {
 	height: 100%;
@@ -11,6 +57,7 @@ html {
 	
 	body {
 		height: 100%;
+		font-family: @ff;
 		
 		.wrapper {
 			position: relative;	
@@ -19,45 +66,120 @@ html {
 			margin-left: @menuWidth;
 			padding: 1rem 1rem 4rem 1rem;
 			
+			h1 {
+				width: 100%;
+				display: table;
+				
+				&.done {
+					background: #5CB85C;
+				}
+				
+				.material-icons {
+					display: table-cell;
+					vertical-align: middle;
+					font-size: 2.5rem;
+					cursor: pointer;
+					border-radius: 5rem;
+				}
+			}
+			
 			.flexbox {
+				position: relative;
 				display: flex;
 				flex-direction: row;
 				flex-flow: row wrap;
 				
-				.elem {
+				.group-separator {
+					display: table;
+					width: 100%;
+					vertical-align: middle;
+					font-weight: bold;
+					font-size: 1.5rem;
+					padding-top: 2rem;
+					padding-right: 0.8rem;
+					
+					&:first-child {
+						padding-top: 0;
+					}
+
+					&.preview, &.selected {
+						opacity: 0.5;
+					}
+
+					.title {
+						width: 100%;
+						padding: 0 1.5rem;
+						outline: none;
+						border: 1px solid rgba(0, 0, 0, 0);
+						
+						&:focus {
+							border-color: #000;
+						}
+					}
+				}
+
+				.tile {
+					display: block;
 					position: relative;
 					width: @tileSize;
 					height: @tileSize;
-					margin: 1rem;
+					margin: 2px;
 					cursor: pointer;
 					overflow: hidden;
-					background: rgb(199, 63, 63);
+					transition: width 0.15s ease 0s;
 					
 					&:hover {
-						border: 2px solid rgba(0, 0, 0, 0.4);
+						&:before {
+							max-height: 100%;
+						}
 
 						.tile-content {
-							transform: translateY(-2rem);
+							transform: translateY(-100%);
 						}
 
 						.title {
-							max-height: 2rem;
+							max-height: 100%;
 						}
 					}
 					
-					&.middle {
+					&.medium {
 						width: @tileSize * 2;
 					}
 
 					&.big {
 						width: @tileSize * 3;
 					}
+
+					&.preview, &.selected {
+						opacity: 0.5;
+					}
+
+					.colors-list;
+
+					&:before {
+						content: " ";
+						position: absolute;
+						display: block;
+						left: 0;
+						top: 0;
+						width: 100%;
+						height: 100%;
+						max-height: 0;
+						background: rgba(0, 0, 0, 0.3);
+						transition: max-height 0.15s ease 0s;
+					}
 					
 					.tile-content {
 						width: 100%;
 						height: 100%;
-						background: url('http://ura-mastera.ru/edit/m_edit_menu/img/71.jpg') no-repeat 50% 50%;
+						text-align: center;
+						line-height: @tileSize;
 						transition: transform 0.15s ease 0s;
+						
+						img {
+							max-height: 100%;
+							max-width: 100%;
+						}
 					}
 
 					.title {
@@ -65,14 +187,110 @@ html {
 						left: 0;
 						bottom: 0;
 						width: 100%;
-						height: 2rem;
+						height: 100%;
 						line-height: 2rem;
 						max-height: 0;
 						color: #FFF;
 						padding: 0 0.5rem;
-						background: rgba(0, 0, 0, 0.4);
+						background: rgba(0, 0, 0, 0.3);
 						box-sizing: border-box;
 						transition: max-height 0.15s ease 0s;
+					}
+				}
+
+				.tile-settings {
+					position: fixed;
+					left: -(2 * @menuWidth);
+					top: 0;
+					height: 100%;
+					width: @menuWidth;
+					background: @menuBg;
+					color: @menuTextColor;
+					transition: left 0.15s ease 0s;
+					box-shadow: 2px 0 5px #444444;
+					z-index: 10;
+					
+					.title {
+						padding: 0.8rem;
+						border-bottom: 1px solid #000;
+						font-size: 1.5rem;
+					}
+
+					.settings-holder {
+						padding-bottom: 0.8rem;
+						height: 100%;
+						overflow: auto;
+
+						.elements {
+							padding: 0.8rem;
+							border-bottom: 1px solid #000;
+							
+							.elem {
+								padding: 0.8rem;
+							}
+						}
+
+						.tile-properties {
+							display: none;
+							padding: 1.5rem 0.8rem 1.5rem 0.8rem;
+							
+							.sub-title {
+								padding-top: 1.5rem;
+							}
+
+							.colors {
+								display: flex;
+								flex-direction: row;
+								flex-flow: row wrap;
+								margin-top: 2rem;
+								cursor: pointer;
+								
+								.color {
+									width: 2rem;
+									height: 2rem;
+									margin: 0.3rem;
+									
+									.colors-list;
+									
+									&.selected {
+										border: 2px solid #000;
+									}
+								}
+							}
+
+							label {
+								width: 100%;
+								display: block;
+								cursor: pointer;
+								
+								& > input {
+									width: auto;
+									cursor: pointer;
+								}
+							}
+
+							input {
+								width: 100%;
+								border: none;
+								background: #607d8b;
+								border-bottom: 1px solid #fff;
+								padding: 0.2rem 0.5rem;
+							}
+						}
+					}
+				}
+
+				&.editable {
+					.group-separator {
+						background: #BDCFD8;
+						
+						.title {
+							background: #BDCFD8;
+						}
+					}
+
+					.tile-settings {
+						left: 0;
 					}
 				}
 			}
