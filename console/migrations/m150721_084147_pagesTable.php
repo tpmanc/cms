@@ -9,12 +9,12 @@ class m150721_084147_pagesTable extends Migration
     {
         $this->createTable('staticPages', [
             'id' => Schema::TYPE_PK,
-            'title' => Schema::TYPE_VARCHAR . ' (255)',
-            'text' => Schema::TYPE_TEXT,
-            'seoTitle' => Schema::TYPE_VARCHAR . ' (255)',
-            'seoDesctiption' => Schema::TYPE_VARCHAR . ' (255)',
-            'seoKeywords' => Schema::TYPE_VARCHAR . ' (255)',
-            'chpu' => Schema::TYPE_VARCHAR . ' (255)',
+            'title' => Schema::TYPE_STRING . '(255) NOT NULL',
+            'text' => Schema::TYPE_TEXT . ' NOT NULL',
+            'seoTitle' => Schema::TYPE_STRING . '(255) NOT NULL',
+            'seoDesctiption' => Schema::TYPE_STRING . '(255) NOT NULL',
+            'seoKeywords' => Schema::TYPE_STRING . '(255) NOT NULL',
+            'chpu' => Schema::TYPE_STRING . '(255) NOT NULL',
         ]);
     }
 
