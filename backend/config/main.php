@@ -33,5 +33,13 @@ return [
             'class' => 'yii\rbac\DbManager',
         ],
     ],
+    'modules' => [
+        'redactor' => [
+            'class' => 'yii\redactor\RedactorModule',
+            'uploadDir' => '@webroot/img',
+            'uploadUrl' => '@web/img',
+            'imageAllowExtensions'=>['jpg','png','gif']
+        ],
+    ],
     'params' => $params,
 ];
