@@ -10,7 +10,6 @@ use yii\helpers\Url;
 /* @var $content string */
 
 AppAsset::register($this);
-echo Url::canonical();die();
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
