@@ -23,7 +23,7 @@
         "bower-asset/jquery-ui": "@stable",
         "bower-asset/jquery.inputmask": "@stable",
         "bower-asset/punycode": "@stable",
-        "vova07/yii2-imperavi-widget": "*"
+        "yiidoc/yii2-redactor": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
