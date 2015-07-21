@@ -7,7 +7,7 @@ class m150721_084147_pagesTable extends Migration
 {
     public function up()
     {
-        $this->createTable('staticPages', [
+        $this->createTable('staticPage', [
             'id' => Schema::TYPE_PK,
             'title' => Schema::TYPE_STRING . '(255) NOT NULL',
             'text' => Schema::TYPE_TEXT . ' NOT NULL',
@@ -20,6 +20,6 @@ class m150721_084147_pagesTable extends Migration
 
     public function down()
     {
-        $this->dropTable('staticPages');
+        $this->dropTable('staticPage');
     }
 }
