@@ -3,6 +3,7 @@
 
 $this->title = 'CMS';
 ?>
+<h1>Dashboard <i class="material-icons" id="tileChangeBlock">settings</i></h1>
 
 <div class="flexbox" id="tile-sort">
     <?php if (!empty($dashboardInfo)) { ?>

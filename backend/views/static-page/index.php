@@ -1,5 +1,6 @@
 <?php
 
+use Yii\t;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -7,7 +8,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\StaticPageSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Static Pages';
+$this->title = Yii::t('app/staticPage', 'Static Pages');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="static-page-index">
@@ -16,24 +17,32 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Static Page', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app/staticPage', 'Create Page'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
+            [
+                'attribute' => 'id',
+                'options' => [
+                    'width' => 10,
+                ],
+            ],
             'title',
-            'text:ntext',
+            // 'text:raw',
             'seoTitle',
             'seoDesctiption',
-            // 'seoKeywords',
-            // 'chpu',
+            'seoKeywords',
+            'chpu',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'options' => [
+                    'width' => 70,
+                ],
+            ],
         ],
     ]); ?>
 

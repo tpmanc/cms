@@ -44,12 +44,12 @@ class StaticPage extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'text' => 'Text',
+            'title' => Yii::t('app/staticPage', 'Title'),
+            'text' => Yii::t('app/staticPage', 'Text'),
             'seoTitle' => 'Seo Title',
             'seoDesctiption' => 'Seo Desctiption',
             'seoKeywords' => 'Seo Keywords',
-            'chpu' => 'Chpu',
+            'chpu' => Yii::t('app/staticPage', 'Chpu'),
         ];
     }
 }
