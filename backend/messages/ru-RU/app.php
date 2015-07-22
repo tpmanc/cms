@@ -5,5 +5,7 @@ return [
 	'Update' => 'Изменить',
 	'Delete' => 'Удалить',
 	'Preview' => 'Посмотреть на сайте',
+	'Reset' => 'Сброс',
+	'Search' => 'Поиск',
 	'Are you sure you want to delete this item?' => ' Вы действительно хотите удалить запись?',
 ];

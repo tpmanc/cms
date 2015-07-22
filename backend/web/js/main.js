@@ -173,6 +173,10 @@ $(function(){
         items: '.group-separator, .tile',
         disabled: true
     });
+
+
+
+    // category/index
 });
 
 function getColorClass(classesString) {

@@ -15,6 +15,7 @@ return [
 	                'fileMap' => [
 	                    'app' => 'app.php',
 	                    'app/staticPage' => 'appStaticPage.php',
+	                    'app/category' => 'appCategory.php',
 	                    'app/error' => 'error.php',
 	                ],
 	            ],

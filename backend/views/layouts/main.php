@@ -31,7 +31,7 @@ AppAsset::register($this);
     <ul>
         <li><a href="<?= Url::to(['static-page/index'])?>"><i class="material-icons">insert_drive_file</i> Страницы</a></li>
         <li><a href="#"><i class="material-icons">format_align_center</i> Статьи</a></li>
-        <li><a href="#"><i class="material-icons">list</i> Категории</a></li>
+        <li><a href="<?= Url::to(['category/index'])?>"><i class="material-icons">list</i> Категории</a></li>
         <li><a href="#"><i class="material-icons">local_grocery_store</i> Товары</a></li>
         <li><a href="#"><i class="material-icons">settings_ethernet</i> UML / XML</a></li>
         <li><a href="#"><i class="material-icons">textsms</i> Отзывы</a></li>
