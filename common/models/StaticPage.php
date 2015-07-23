@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\models;
+namespace common\models;
 
 use Yii;
 
@@ -33,6 +33,7 @@ class StaticPage extends \yii\db\ActiveRecord
         return [
             [['title', 'text', 'seoTitle', 'seoDescription', 'seoKeywords', 'chpu'], 'required'],
             [['text'], 'string'],
+            ['chpu', 'unique'],
             [['title', 'seoTitle', 'seoDescription', 'seoKeywords', 'chpu'], 'string', 'max' => 255]
         ];
     }

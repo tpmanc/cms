@@ -3,8 +3,8 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\StaticPage;
-use backend\models\StaticPageSearch;
+use common\models\StaticPage;
+use common\models\StaticPageSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
