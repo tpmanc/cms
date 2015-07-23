@@ -42,6 +42,7 @@ return [
                         'app/staticPage' => 'appStaticPage.php',
                         'app/category' => 'appCategory.php',
                         'app/deliveryType' => 'appDeliveryType.php',
+                        'app/product' => 'appProduct.php',
                         'app/error' => 'error.php',
                     ],
                 ],

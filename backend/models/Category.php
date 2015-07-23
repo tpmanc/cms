@@ -89,7 +89,7 @@ class Category extends \yii\db\ActiveRecord
 
     public static function generateSelectBox($currentCategory = false)
     {
-        $result = [0 => Yii::t('app/category', 'Root directory')];
+        $result = [0 => ''];
         $models = self::find()->all();
         if ($models !== null) {
             foreach ($models as $m) {
