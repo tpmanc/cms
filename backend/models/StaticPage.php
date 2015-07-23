@@ -47,7 +47,7 @@ class StaticPage extends \yii\db\ActiveRecord
             'title' => Yii::t('app/staticPage', 'Title'),
             'text' => Yii::t('app/staticPage', 'Text'),
             'seoTitle' => 'Seo Title',
-            'seoDescription' => 'Seo Desctiption',
+            'seoDescription' => 'Seo Description',
             'seoKeywords' => 'Seo Keywords',
             'chpu' => Yii::t('app/staticPage', 'Chpu'),
         ];

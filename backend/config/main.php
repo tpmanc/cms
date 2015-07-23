@@ -11,7 +11,6 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [],
     'components' => [
         'user' => [
             'identityClass' => 'common\models\User',
@@ -55,6 +54,13 @@ return [
             'uploadDir' => '@webroot/img',
             'uploadUrl' => '@web/img',
             'imageAllowExtensions'=>['jpg','png','gif']
+        ],
+        'sitemap' => [
+            'class' => 'backend\modules\sitemap\SitemapModule',
+            'models' => [
+                'backend\models\Category',
+                'backend\models\StaticPage',
+            ],
         ],
     ],
     'params' => $params,
