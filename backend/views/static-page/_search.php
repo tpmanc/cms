@@ -23,7 +23,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'seoTitle') ?>
 
-    <?= $form->field($model, 'seoDesctiption') ?>
+    <?= $form->field($model, 'seoDescription') ?>
 
     <?php // echo $form->field($model, 'seoKeywords') ?>
 

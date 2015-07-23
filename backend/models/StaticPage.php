@@ -11,7 +11,7 @@ use Yii;
  * @property string $title
  * @property string $text
  * @property string $seoTitle
- * @property string $seoDesctiption
+ * @property string $seoDescription
  * @property string $seoKeywords
  * @property string $chpu
  */
@@ -31,9 +31,9 @@ class StaticPage extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'text', 'seoTitle', 'seoDesctiption', 'seoKeywords', 'chpu'], 'required'],
+            [['title', 'text', 'seoTitle', 'seoDescription', 'seoKeywords', 'chpu'], 'required'],
             [['text'], 'string'],
-            [['title', 'seoTitle', 'seoDesctiption', 'seoKeywords', 'chpu'], 'string', 'max' => 255]
+            [['title', 'seoTitle', 'seoDescription', 'seoKeywords', 'chpu'], 'string', 'max' => 255]
         ];
     }
 
@@ -47,7 +47,7 @@ class StaticPage extends \yii\db\ActiveRecord
             'title' => Yii::t('app/staticPage', 'Title'),
             'text' => Yii::t('app/staticPage', 'Text'),
             'seoTitle' => 'Seo Title',
-            'seoDesctiption' => 'Seo Desctiption',
+            'seoDescription' => 'Seo Desctiption',
             'seoKeywords' => 'Seo Keywords',
             'chpu' => Yii::t('app/staticPage', 'Chpu'),
         ];

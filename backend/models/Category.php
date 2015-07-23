@@ -34,8 +34,8 @@ class Category extends \yii\db\ActiveRecord
     public function scenarios()
     {
         return [
-            'create' => ['title', 'seoTitle', 'seoDescription', 'seoKeywords', 'seoText', 'chpu', 'parentId', 'isDisabled'],
-            'update' => ['title', 'seoTitle', 'seoDescription', 'seoKeywords', 'seoText', 'chpu', 'parentId', 'isDisabled'],
+            'create' => ['title', 'seoTitle', 'seoDescription', 'seoKeywords', 'seoText', 'chpu', 'parentId', 'isDisabled', 'image'],
+            'update' => ['title', 'seoTitle', 'seoDescription', 'seoKeywords', 'seoText', 'chpu', 'parentId', 'isDisabled', 'image'],
         ];
     }
 
@@ -56,7 +56,7 @@ class Category extends \yii\db\ActiveRecord
             ],
             [['parentId', 'isDisabled', 'productCount', 'level', 'position'], 'default', 'value' => 0],
 
-            'on' => ['create', 'update'],
+            // 'on' => ['create', 'update'],
         ];
     }
 
@@ -80,6 +80,30 @@ class Category extends \yii\db\ActiveRecord
             'position' => Yii::t('app/category', 'Position'),
             'isDisabled' => Yii::t('app/category', 'Is Disabled'),
         ];
+    }
+
+    public function beforeSave($insert)
+    {
+        if ($this->parentId == 0) {
+            $this->idPath = '';
+            $this->level = 0;
+        } else {
+            $parent = self::find()->select(['idPath'])->where(['id' => $this->parentId])->one();
+            if ($parent->idPath !== '') {
+                $ids = explode('/', $parent->idPath);
+            } else {
+                $ids = [];
+            }
+            $ids[] = $this->parentId;
+            $this->idPath = implode('/', $ids);
+            $this->level = count($ids);
+        }
+        if ($this->isNewRecord) {
+            $this->productCount = 0;
+            $this->position = 0;
+        }
+     
+        return parent::beforeSave($insert);
     }
 
     public static function generateSelectBox($currentCategory = false)

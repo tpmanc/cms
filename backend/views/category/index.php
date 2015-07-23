@@ -20,19 +20,30 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a(Yii::t('app/category', 'Create Category'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     
-    <ul>
-        <?php
-            foreach ($categories as $c) {
-                echo $c['title'];
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            [
+                'attribute' => 'id',
+                'options' => [
+                    'width' => 10,
+                ],
+            ],
+            'title',
+            // 'text:raw',
+            'seoTitle',
+            // 'seoDescription',
+            'idPath',
+            'chpu',
 
-                $item = $c;
-                $prevItem = null;
-                while ($item->sub !== null) {
-                    echo $item->sub->title;
-                    $item = $item->sub;
-                }
-            }
-        ?>
-    </ul>
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'options' => [
+                    'width' => 70,
+                ],
+            ],
+        ],
+    ]); ?>
 
 </div>

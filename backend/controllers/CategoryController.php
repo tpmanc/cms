@@ -8,6 +8,7 @@ use backend\models\CategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use backend\components\ArrayHelper;
 
 /**
  * CategoryController implements the CRUD actions for Category model.
@@ -32,10 +33,38 @@ class CategoryController extends Controller
      */
     public function actionIndex()
     {
+        $searchModel = new CategorySearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $categories = Category::find()->all();
+        $idTree = [];
+        $categoriesParams = [];
+        foreach ($categories as $c) {
+            if ($c->idPath !== '') {
+                $idArr = explode('/', $c->idPath);
+                $arrPath = '';
+                foreach ($idArr as $id) {
+                    $arrPath .= '[' . $id . ']';
+                }
+                if (!isset(${'idTree' . $arrPath})) {
+
+                }
+                $idTree[$c->parentId][] = [
+                    $c->id
+                ];
+            } else {
+                if (!isset($idTree[$c->id])) {
+                    $idTree[$c->id] = $c->id;
+                }
+            }
+        }
+        // print_r($idTree);die();
+        // echo ArrayHelper::printArrayAsTree($idTree);die();
 
         return $this->render('index', [
-            'categories' => $categories,
+            'idTree' => $idTree,
+            'categoriesParams' => $categoriesParams,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 

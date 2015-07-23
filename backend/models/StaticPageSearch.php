@@ -19,7 +19,7 @@ class StaticPageSearch extends StaticPage
     {
         return [
             [['id'], 'integer'],
-            [['title', 'text', 'seoTitle', 'seoDesctiption', 'seoKeywords', 'chpu'], 'safe'],
+            [['title', 'text', 'seoTitle', 'seoDescription', 'seoKeywords', 'chpu'], 'safe'],
         ];
     }
 
@@ -62,7 +62,7 @@ class StaticPageSearch extends StaticPage
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'text', $this->text])
             ->andFilterWhere(['like', 'seoTitle', $this->seoTitle])
-            ->andFilterWhere(['like', 'seoDesctiption', $this->seoDesctiption])
+            ->andFilterWhere(['like', 'seoDescription', $this->seoDescription])
             ->andFilterWhere(['like', 'seoKeywords', $this->seoKeywords])
             ->andFilterWhere(['like', 'chpu', $this->chpu]);
 

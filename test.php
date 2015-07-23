@@ -40,16 +40,36 @@ $arr = [
 	],
 ];
 
+$arr = [
+    'm1' => [
+        's11' => 's11',
+        's12' => [
+            'ss121' => 'ss111',
+            'ss122' => [
+                'sss1221' => 'sss1221',
+            ],
+        ],
+    ],
+
+
+    'm2' => 'm2',
+
+    'm3' => [
+        's21' => 's21',
+    ],
+];
+
 
 function get_child($arr, $t, $level=0) {
     $res = '<ul>';
     if(is_array($arr)){
         foreach ($arr as $k => $value) {
             if (is_array($value)) {
+                $res .= '<li>' . $k . '</li>';
             	$res .= get_child($value,$level+1);
             }
             if (is_string($value)) {
-            	$res .= '<li>' . $t[$value] . '</li>';
+            	$res .= '<li>' . $value . '</li>';
             }
         }
     }

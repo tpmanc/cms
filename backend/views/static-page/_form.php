@@ -27,7 +27,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'seoTitle')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'seoDesctiption')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'seoDescription')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'seoKeywords')->textInput(['maxlength' => true]) ?>
 
