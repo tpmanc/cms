@@ -11,7 +11,7 @@ class StaticPageController extends \yii\web\Controller
     {
         $page = StaticPage::find()->where(['chpu' => $chpu])->one();
         if ($page === null) {
-            throw new NotFoundHttpException();
+            throw new NotFoundHttpException('Page does not exist');
         }
         return $this->render('view', [
             'page' => $page,
