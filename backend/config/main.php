@@ -6,6 +6,8 @@ $params = array_merge(
     require(__DIR__ . '/params-local.php')
 );
 
+$modules = require(__DIR__ . '/modules.php');
+
 return [
     'id' => 'app-backend',
     'basePath' => dirname(__DIR__),
@@ -49,20 +51,6 @@ return [
             ],
         ],
     ],
-    'modules' => [
-        'redactor' => [
-            'class' => 'yii\redactor\RedactorModule',
-            'uploadDir' => '@webroot/img',
-            'uploadUrl' => '@web/img',
-            'imageAllowExtensions'=>['jpg','png','gif']
-        ],
-        'sitemap' => [
-            'class' => 'backend\modules\sitemap\SitemapModule',
-            'models' => [
-                'backend\models\Category',
-                'backend\models\StaticPage',
-            ],
-        ],
-    ],
+    'modules' => $modules,
     'params' => $params,
 ];
