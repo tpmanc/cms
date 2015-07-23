@@ -5,7 +5,7 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\StaticPage */
+/* @var $model common\models\StaticPage */
 
 $this->title = Yii::t('app/staticPage', 'Create Page');
 

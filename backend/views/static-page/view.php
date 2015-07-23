@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\StaticPage */
+/* @var $model common\models\StaticPage */
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app/staticPage', 'Static Pages'), 'url' => ['index']];
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Preview'), [], ['class' => 'btn btn-success', 'target' => '_blank']); ?>
+        <?= Html::a(Yii::t('app', 'Preview'), ['/page/'], ['class' => 'btn btn-success', 'target' => '_blank']); ?>
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
