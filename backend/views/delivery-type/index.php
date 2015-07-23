@@ -1,41 +1,37 @@
 <?php
 
-use Yii\t;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\CategorySearch */
+/* @var $searchModel app\models\DeliveryTypeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app/category', 'Categories');
+$this->title = Yii::t('app/deliveryType', 'Delivery Types');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="category-index">
+<div class="delivery-type-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app/category', 'Create Category'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app/deliveryType', 'Create Delivery Type'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-    
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
+
             [
                 'attribute' => 'id',
                 'options' => [
-                    'width' => 10,
+                    'width' => 70,
                 ],
             ],
             'title',
-            // 'text:raw',
-            'seoTitle',
-            // 'seoDescription',
-            'idPath',
-            'chpu',
+            'text:ntext',
             'isDisabled:boolean',
 
             [

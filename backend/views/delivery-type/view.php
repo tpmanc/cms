@@ -5,13 +5,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Category */
+/* @var $model app\models\DeliveryType */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app/category', 'Categories'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app/deliveryType', 'Delivery Types'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="category-view">
+<div class="delivery-type-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -29,25 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            // 'id',
+            'id',
             'title',
-            'seoTitle',
-            'seoDescription',
-            'seoKeywords',
-            // 'seoText:ntext',
-            'chpu',
-            'parentId',
-            // 'level',
-            'idPath',
-            'productCount',
-            // 'position',
+            'text:ntext',
             'isDisabled:boolean',
         ],
     ]) ?>
-
-    <hr>
-
-    <h3><?= Yii::t('app/category', 'Seo Text')?></h3>
-    <?= $model->seoText?>
 
 </div>

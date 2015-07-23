@@ -8,7 +8,7 @@ return [
 	'Id Path' => 'Id путь',
 	'Product Count' => 'Количество товаров',
 	'Position' => 'Позиция',
-	'Is Disabled' => 'Выключена',
+	'Is Disabled' => 'Выключить',
 
 	'Categories' => 'Категории',
 	'Update Category' => 'Изменить категорию',
