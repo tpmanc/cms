@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\CategorySearch */
+/* @var $model backend\models\CategorySearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -29,12 +29,6 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'seoText') ?>
 
     <?php // echo $form->field($model, 'chpu') ?>
-
-    <?php // echo $form->field($model, 'parentId') ?>
-
-    <?php // echo $form->field($model, 'level') ?>
-
-    <?php // echo $form->field($model, 'idPath') ?>
 
     <?php // echo $form->field($model, 'productCount') ?>
 

@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Category */
+/* @var $model backend\models\Category */
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app/category', 'Categories'), 'url' => ['index']];
@@ -36,9 +36,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'seoKeywords',
             // 'seoText:ntext',
             'chpu',
-            'parentId',
-            // 'level',
-            'idPath',
             'productCount',
             // 'position',
             'isDisabled:boolean',

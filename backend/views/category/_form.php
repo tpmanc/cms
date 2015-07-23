@@ -7,7 +7,7 @@ use yii\widgets\ActiveForm;
 use backend\models\Category;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Category */
+/* @var $model backend\models\Category */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -35,8 +35,6 @@ use backend\models\Category;
     ]) ?>
 
     <?= $form->field($model, 'chpu')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'parentId')->dropDownList(Category::generateSelectBox($model->id)) ?>
 
     <?= $form->field($model, 'isDisabled')->checkbox() ?>
 

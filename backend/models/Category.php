@@ -34,8 +34,8 @@ class Category extends \yii\db\ActiveRecord
     public function scenarios()
     {
         return [
-            'create' => ['title', 'seoTitle', 'seoDescription', 'seoKeywords', 'seoText', 'chpu', 'parentId', 'isDisabled', 'image'],
-            'update' => ['title', 'seoTitle', 'seoDescription', 'seoKeywords', 'seoText', 'chpu', 'parentId', 'isDisabled', 'image'],
+            'create' => ['title', 'seoTitle', 'seoDescription', 'seoKeywords', 'seoText', 'chpu', 'isDisabled'],
+            'update' => ['title', 'seoTitle', 'seoDescription', 'seoKeywords', 'seoText', 'chpu', 'isDisabled'],
         ];
     }
 
@@ -45,18 +45,16 @@ class Category extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'chpu', 'level', 'idPath', 'productCount', 'position', 'isDisabled'], 'required'],
+            [['title', 'chpu', 'productCount', 'position', 'isDisabled'], 'required'],
             [['seoText'], 'string'],
-            [['parentId', 'level', 'productCount', 'position'], 'integer'],
+            [['productCount', 'position'], 'integer'],
             ['isDisabled', 'boolean'],
-            [['title', 'seoTitle', 'seoDescription', 'seoKeywords', 'chpu', 'idPath'], 'string', 'max' => 255],
+            [['title', 'seoTitle', 'seoDescription', 'seoKeywords', 'chpu'], 'string', 'max' => 255],
             ['chpu', 'match', 
                 'pattern' => '/^[A-Za-z0-9\-\_]+$/i', 
                 'message' => Yii::t('app/category', 'Chpu is invalid. Should contain only "0-9", "A-Z", "a-z", "-", "_"')
             ],
-            [['parentId', 'isDisabled', 'productCount', 'level', 'position'], 'default', 'value' => 0],
-
-            // 'on' => ['create', 'update'],
+            [['isDisabled', 'productCount', 'position'], 'default', 'value' => 0],
         ];
     }
 
@@ -73,9 +71,6 @@ class Category extends \yii\db\ActiveRecord
             'seoKeywords' => 'Seo Keywords',
             'seoText' => 'Seo Text',
             'chpu' => Yii::t('app/category', 'Chpu'),
-            'parentId' => Yii::t('app/category', 'Parent'),
-            'level' => Yii::t('app/category', 'Level'),
-            'idPath' => Yii::t('app/category', 'Id Path'),
             'productCount' => Yii::t('app/category', 'Product Count'),
             'position' => Yii::t('app/category', 'Position'),
             'isDisabled' => Yii::t('app/category', 'Is Disabled'),
@@ -84,20 +79,6 @@ class Category extends \yii\db\ActiveRecord
 
     public function beforeSave($insert)
     {
-        if ($this->parentId == 0) {
-            $this->idPath = '';
-            $this->level = 0;
-        } else {
-            $parent = self::find()->select(['idPath'])->where(['id' => $this->parentId])->one();
-            if ($parent->idPath !== '') {
-                $ids = explode('/', $parent->idPath);
-            } else {
-                $ids = [];
-            }
-            $ids[] = $this->parentId;
-            $this->idPath = implode('/', $ids);
-            $this->level = count($ids);
-        }
         if ($this->isNewRecord) {
             $this->productCount = 0;
             $this->position = 0;

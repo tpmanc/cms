@@ -18,8 +18,8 @@ class CategorySearch extends Category
     public function rules()
     {
         return [
-            [['id', 'parentId', 'level', 'productCount', 'position', 'isDisabled'], 'integer'],
-            [['title', 'seoTitle', 'seoDescription', 'seoKeywords', 'seoText', 'chpu', 'idPath'], 'safe'],
+            [['id', 'productCount', 'position', 'isDisabled'], 'integer'],
+            [['title', 'seoTitle', 'seoDescription', 'seoKeywords', 'seoText', 'chpu'], 'safe'],
         ];
     }
 
@@ -57,8 +57,6 @@ class CategorySearch extends Category
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'parentId' => $this->parentId,
-            'level' => $this->level,
             'productCount' => $this->productCount,
             'position' => $this->position,
             'isDisabled' => $this->isDisabled,
@@ -69,8 +67,7 @@ class CategorySearch extends Category
             ->andFilterWhere(['like', 'seoDescription', $this->seoDescription])
             ->andFilterWhere(['like', 'seoKeywords', $this->seoKeywords])
             ->andFilterWhere(['like', 'seoText', $this->seoText])
-            ->andFilterWhere(['like', 'chpu', $this->chpu])
-            ->andFilterWhere(['like', 'idPath', $this->idPath]);
+            ->andFilterWhere(['like', 'chpu', $this->chpu]);
 
         return $dataProvider;
     }

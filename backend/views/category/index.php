@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\CategorySearch */
+/* @var $searchModel backend\models\CategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('app/category', 'Categories');
@@ -34,7 +34,6 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'text:raw',
             'seoTitle',
             // 'seoDescription',
-            'idPath',
             'chpu',
             'isDisabled:boolean',
 
