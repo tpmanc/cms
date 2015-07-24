@@ -45,6 +45,7 @@ return [
                         'app/category' => 'appCategory.php',
                         'app/deliveryType' => 'appDeliveryType.php',
                         'app/product' => 'appProduct.php',
+                        'app/menu' => 'appMenu.php',
                         'app/error' => 'error.php',
                     ],
                 ],

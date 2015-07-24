@@ -175,8 +175,14 @@ $(function(){
     });
 
 
+    // menu builder
+    $('#menuBuilder .root-item').on('click', function(){
+        $(this).closest('.panel').find('ul').toggleClass('hidden');
+    });
 
-    // category/index
+    $('#menuBuilder').sortable({
+        items: '.panel'
+    });
 });
 
 function getColorClass(classesString) {
