@@ -26,6 +26,7 @@ class AppAsset extends AssetBundle
         'js/jquery-ui.min.js',
         'js/bootstrap.min.js',
         'js/nprogress.js',
+        'js/jquery.arcticmodal-0.3.min.js',
         'js/main.js',
     ];
     public $depends = [

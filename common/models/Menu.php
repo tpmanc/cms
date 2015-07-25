@@ -10,10 +10,14 @@ use common\models\MenuQuery;
  * This is the model class for table "menu".
  *
  * @property integer $id
+ * @property integer $tree
  * @property integer $lft
  * @property integer $rgt
  * @property integer $depth
  * @property string $name
+ * @property string $link
+ * @property integer $isCategory
+ * @property integer $categoryId
  */
 class Menu extends \yii\db\ActiveRecord
 {
@@ -40,26 +44,18 @@ class Menu extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    // public function rules()
-    // {
-    //     return [
-    //         [['lft', 'rgt', 'depth', 'name'], 'required'],
-    //         [['lft', 'rgt', 'depth'], 'integer'],
-    //         [['name'], 'string', 'max' => 255]
-    //     ];
-    // }
-
-    /**
-     * @inheritdoc
-     */
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app/menu', 'ID'),
-            'lft' => Yii::t('app/menu', 'Lft'),
-            'rgt' => Yii::t('app/menu', 'Rgt'),
-            'depth' => Yii::t('app/menu', 'Depth'),
-            'name' => Yii::t('app/menu', 'Name'),
+            'id' => 'ID',
+            'tree' => 'Tree',
+            'lft' => 'Lft',
+            'rgt' => 'Rgt',
+            'depth' => 'Depth',
+            'name' => 'Name',
+            'link' => 'Link',
+            'isCategory' => 'Is Category',
+            'categoryId' => 'Category ID',
         ];
     }
 

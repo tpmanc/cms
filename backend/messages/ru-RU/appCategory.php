@@ -7,6 +7,7 @@ return [
 	'Position' => 'Позиция',
 	'Is Disabled' => 'Выключить',
 
+	'Category' => 'Категория',
 	'Categories' => 'Категории',
 	'Update Category' => 'Изменить категорию',
 	'Create Category' => 'Добавить категорию',

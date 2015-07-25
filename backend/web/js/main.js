@@ -1,5 +1,7 @@
 $(function(){
+    var csrfToken = $('meta[name="csrf-token"]').attr("content");
     var body = $('body');
+    var tileSettings = $('#tileSettings');
     var tileSort = $("#tile-sort");
     var colors = ['blue', 'lightblue', 
                     'aqua', 'green', 'lightgreen', 
@@ -14,12 +16,12 @@ $(function(){
             $(this).html('settings');
             body.find('h1').removeClass('done');
             tileSort.find('.preview').removeClass('preview');
-            $('#tileSettings .tile-properties').hide();
-            $('#tileSettings .elem .btn').removeClass('disabled');
+            tileSettings.find('.tile-properties').hide();
+            tileSettings.find('.elem .btn').removeClass('disabled');
             // ajax
             var arr = {};
-            var elemets = $("#tile-sort").children(':not(#tileSettings)');
-            $(elemets).each(function(i, e){
+            var elements = $("#tile-sort").children(':not(#tileSettings)');
+            $(elements).each(function(i, e){
                 var $e = $(e);
                 if ($e.hasClass('tile')) {
                     var url;
@@ -40,29 +42,27 @@ $(function(){
                         'color': getColorClass($e.attr('class')),
                         'size': getTileSize($e.attr('class'), colors),
                         'img': img,
-                        'url': url,
+                        'url': url
                     };
                 } else {
-                    type = 'separator';
                     arr[i] = {
                         "type": 'separator',
-                        "title": $e.find('.title').text(),
+                        "title": $e.find('.title').text()
                     };
                 }
             });
-            var csrfToken = $('meta[name="csrf-token"]').attr("content");
             $.ajax({
                 type: "POST",
                 url: "http://cms/backend/web/index.php?r=ajax/save-dashboard",
-                data: {"info": JSON.stringify(arr), _csrf: csrfToken},
+                data: {"info": JSON.stringify(arr), "_csrf": csrfToken},
                 dataType: 'json',
                 beforeSend: function(){
                     NProgress.start();
                 },
-                success: function(msg){
+                success: function(){
                     NProgress.done();
                 }
-             });
+            });
         } else {
             tileSort.addClass('editable').sortable("enable");
             $(this).html('done');
@@ -81,7 +81,7 @@ $(function(){
 
     $('#addLink').on('click', function(){
         var title = '';
-        var color = colors[Math.floor(Math.random() * ((colors.length - 1) - 0 + 1)) + 0];
+        var color = colors[Math.floor(Math.random() * ((colors.length - 1) + 1))];
         var str = '<a href="#" class="tile ' + color + '">\
                         <div class="tile-content"></div>\
                         <div class="title">' + title + '</div>\
@@ -111,12 +111,13 @@ $(function(){
 
     body.on('click', '.tile', function(){
         tileSort.find('.preview').removeClass('preview');
-        $('#tileSettings').find('.colors .selected').removeClass('selected');
-        $('#tileSettings').find('.tile-properties').hide();
+        tileSettings.find('.colors .selected').removeClass('selected');
+        tileSettings.find('.tile-properties').hide();
+        var $this;
         if (tileSort.hasClass('editable')) {
             $this = $(this);
             $this.addClass('preview');
-            $('#tileSettings').find('.tile-properties.links').show();
+            tileSettings.find('.tile-properties.links').show();
             if ($this.hasClass('medium')) {
                 $('input[name="tileSize"][value="medium"]').prop('checked', true);
             } else if ($this.hasClass('big')) {
@@ -124,20 +125,20 @@ $(function(){
             } else {
                 $('input[name="tileSize"][value="small"]').prop('checked', true);
             }
-            $('#tileTitle').val( $this.find('.title').text() );
-            $('#tileLink').val( $this.attr('href') );
-            $('#tileImage').val( $this.find('img').attr('src') );
+            $('#tileTitle').val($this.find('.title').text());
+            $('#tileLink').val($this.attr('href'));
+            $('#tileImage').val($this.find('img').attr('src'));
             var colorClass = getColorClass($this.attr('class'));
-            $('#tileSettings').find('.colors .' + colorClass).addClass('selected');
+            tileSettings.find('.colors .' + colorClass).addClass('selected');
             return false;
         }
     });
 
     body.on('click', '.group-separator', function(){
         tileSort.find('.preview').removeClass('preview');
-        $('#tileSettings').find('.tile-properties').hide();
+        tileSettings.find('.tile-properties').hide();
         if (tileSort.hasClass('editable')) {
-            $this = $(this);
+            var $this = $(this);
             $this.addClass('preview');
             $('#tileSettings').find('.tile-properties.groups').show();
             $('#groupTitle').val( $this.find('.title').text() );
@@ -158,8 +159,8 @@ $(function(){
         }
     });
 
-    $('#colorsList .color').on('click', function(){
-        $('#colorsList .color.selected').removeClass('selected');
+    $('#colorsList').find('.color').on('click', function(){
+        $('#colorsList').find('.color.selected').removeClass('selected');
         var $this = $(this);
         var colorClass = getColorClass(tileSort.find('.preview').attr('class'));
         tileSort.find('.preview').removeClass(colorClass);
@@ -176,12 +177,110 @@ $(function(){
 
 
     // menu builder
-    $('#menuBuilder .root-item').on('click', function(){
-        $(this).closest('.panel').find('ul').toggleClass('hidden');
+    var menuBuilder = $('#menuBuilder');
+    var elementModal = $('#elementModal');
+    var allCategories = $('#allCategories');
+    var elementLink = $('#elementLink');
+
+    menuBuilder.on('click', '.expand', function(){
+        var ul = $(this).closest('ul');
+        var li = $(this).closest('li.root');
+        li.toggleClass('active');
+        if (li.hasClass('active')) {
+            ul.find('li.node[data-tree="' + li.data('tree') + '"]').removeClass('hidden');
+        } else {
+            ul.find('li.node[data-tree="' + li.data('tree') + '"]').addClass('hidden');
+        }
     });
 
-    $('#menuBuilder').sortable({
-        items: '.panel'
+    menuBuilder.on('click', '.settings', function(){
+        alert('TODO: изменение параметров элемента');
+    });
+
+    elementModal.find('input[name="isCategory"]').on('change', function(){
+        var isCategory = this.value;
+        resetMenuFields();
+        elementModal.find('.has-error').removeClass('has-error');
+        if (isCategory == 1) {
+            allCategories.show();
+            elementLink.closest('.input-group').hide();
+        } else {
+            allCategories.hide();
+            elementLink.closest('.input-group').show();
+        }
+    });
+
+    allCategories.on('change', function(){
+        var optionSelected = $("option:selected", this);
+        $("#elementTitle").val(optionSelected.data('title'));
+    });
+
+    $('#addRootElement').on('click', function(){
+        resetMenuFields();
+        elementModal.find('.has-error').removeClass('has-error');
+        $.ajax({
+            type: 'POST',
+            url: 'http://cms/backend/web/index.php?r=menu/get-all-elements',
+            data: {"_csrf": csrfToken},
+            dataType: 'json',
+            beforeSend: function () {
+                NProgress.start();
+            },
+            success: function(data) {
+                NProgress.done();
+                $('#allMenuNodes').html(data.menuItems);
+                elementModal.arcticmodal();
+            }
+        });
+    });
+    $('#saveRootElement').on('click', function(){
+        var elemTitle = $('#elementTitle');
+        elementModal.find('.has-error').removeClass('has-error');
+        var error = false;
+        var parentId = $('#allMenuNodes').val();
+        var name = elemTitle.val().trim();
+        var categoryId = allCategories.val();
+        var isCategory = elementModal.find('input[name="isCategory"]:checked').val();
+        if (name.length == 0) {
+            error = true;
+            elemTitle.closest('.input-group').addClass('has-error');
+        }
+        if ((elementLink.val().trim().length == 0) && isCategory == 0) {
+            error = true;
+            elementLink.closest('.input-group').addClass('has-error');
+        }
+        if ((categoryId == 0 || categoryId == null) && isCategory == 1) {
+            error = true;
+            console.log(3);
+            allCategories.addClass('has-error');
+        }
+        if (!error) {
+            $.ajax({
+                type: "POST",
+                url: "http://cms/backend/web/index.php?r=menu/add-element",
+                data: {
+                    "name": name,
+                    "link": elementLink.val().trim(),
+                    "parentId": parentId,
+                    "isCategory": isCategory,
+                    "categoryId": categoryId,
+                    "_csrf": csrfToken
+                },
+                dataType: 'json',
+                beforeSend: function () {
+                    NProgress.start();
+                },
+                success: function (data) {
+                    NProgress.done();
+                    menuBuilder.append(data.html);
+                    // TODO: обновление меню после добавления элемента
+                },
+                complete: function () {
+                    elementModal.removeClass('has-error');
+                    elementModal.arcticmodal('close');
+                }
+            });
+        }
     });
 });
 
@@ -198,7 +297,7 @@ function getColorClass(classesString) {
             e != 'big' && 
             e != 'selected') {
            colorClass = e;
-           return;
+           return false;
         }
     });
     return colorClass;
@@ -216,8 +315,14 @@ function getTileSize(classesString, colors) {
             e != 'selected' &&
             jQuery.inArray(e, colors) === -1) {
            tileSize = e;
-           return;
+           return false;
         }
     });
     return tileSize;
+}
+
+function resetMenuFields(){
+    $("#elementTitle").val('');
+    $('#elementLink').val('');
+    $('#allCategories').val(0);
 }
