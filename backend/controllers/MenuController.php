@@ -21,7 +21,7 @@ class MenuController extends \yii\web\Controller
         ]);
     }
 
-    public function actionAddElement()
+    public function actionSaveElement()
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
         if (Yii::$app->request->isAjax) {
@@ -37,32 +37,36 @@ class MenuController extends \yii\web\Controller
             $link = $post['link'];
             $isCategory = $post['isCategory'];
             $categoryId = $post['categoryId'];
-            if ($isCategory == 1) {
-                $fields = [
-                    'name' => $name,
-                    'link' => '',
-                    'isCategory' => 1,
-                    'categoryId' => $categoryId,
-                ];
+            if ($post['isNewElement'] == 1) {
+                if ($isCategory == 1) {
+                    $fields = [
+                        'name' => $name,
+                        'link' => '',
+                        'isCategory' => 1,
+                        'categoryId' => $categoryId,
+                    ];
+                } else {
+                    $fields = [
+                        'name' => $name,
+                        'link' => $link,
+                        'isCategory' => 0,
+                        'categoryId' => 0,
+                    ];
+                }
+                if ($parentId == 0) {
+                    $elem = new Menu($fields);
+                    $elem->makeRoot();
+                    $html = $this->renderPartial('root-element', [
+                        'root' => $elem,
+                        'leaves' => [],
+                    ]);
+                } else {
+                    $parent = Menu::findOne(['id' => $parentId]);
+                    $elem = new Menu($fields);
+                    $elem->appendTo($parent);
+                }
             } else {
-                $fields = [
-                    'name' => $name,
-                    'link' => $link,
-                    'isCategory' => 0,
-                    'categoryId' => 0,
-                ];
-            }
-            if ($parentId == 0) {
-                $elem = new Menu($fields);
-                $elem->makeRoot();
-                $html = $this->renderPartial('root-element', [
-                    'root' => $elem,
-                    'leaves' => [],
-                ]);
-            } else {
-                $parent = Menu::findOne(['id' => $parentId]);
-                $elem = new Menu($fields);
-                $elem->appendTo($parent);
+                // TODO: сохранение изменений
             }
 
             return [
@@ -76,20 +80,73 @@ class MenuController extends \yii\web\Controller
         }
     }
 
-    public function actionGetAllElements()
+    public function actionEditElement()
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
         if (Yii::$app->request->isAjax) {
-            $menu = Menu::find()->orderBy(['tree' => SORT_ASC, 'lft' => SORT_ASC])->all();
-            $menuItems = '<option value="0">' . Yii::t('app/menu','Root Element') . '</option>';
-            foreach ($menu as $elem) {
-                $menuItems .= "<option value='{$elem->id}'>" . str_repeat('/..', $elem->depth) . "{$elem->name}</option>";
+            if (empty(Yii::$app->request->post())) {
+                return [
+                    'error' => true,
+                    'msg' => 'bad request',
+                ];
             }
+            $post = Yii::$app->request->post();
+            $menuItems = $this->getAllElements();
+            $info = $this->getSubAndCurrentElements($post['itemId']);
+            $subElements = $info['children'];
+            $current = $info['current'];
+            return [
+                'current' => $current,
+                'menuItems' => $menuItems,
+                'subElements' => $subElements,
+            ];
+        } else {
+            throw new NotFoundHttpException('Not Found');
+        }
+    }
+
+    public function actionNewElement()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        if (Yii::$app->request->isAjax) {
+            $menuItems = $this->getAllElements();
             return [
                 'menuItems' => $menuItems,
             ];
         } else {
             throw new NotFoundHttpException('Not Found');
         }
+    }
+
+    private function getAllElements()
+    {
+        $menu = Menu::find()->orderBy(['tree' => SORT_ASC, 'lft' => SORT_ASC])->all();
+        $menuItems = '<option value="0">' . Yii::t('app/menu','Root Element') . '</option>';
+        foreach ($menu as $elem) {
+            $menuItems .= "<option value='{$elem->id}'>" . str_repeat('/..', $elem->depth) . "{$elem->name}</option>";
+        }
+        return $menuItems;
+    }
+
+    private function getSubAndCurrentElements($itemId)
+    {
+        $res = [];
+        $item = Menu::findOne(['id' => $itemId]);
+        $parent = $item->parents(1)->one();
+        $children = $item->children(1)->all();
+        foreach ($children as $c) {
+            $res[] = '<div class="element" data-id="'.$c->id.'">'.$c->name.'</div>';
+        }
+        return [
+            'current' => [
+                'id' => $item->id,
+                'parentId' => $parent->id,
+                'name' => $item->name,
+                'link' => $item->link,
+                'isCategory' => $item->isCategory,
+                'categoryId' => $item->categoryId,
+            ],
+            'children' => $res,
+        ];
     }
 }

@@ -169,7 +169,6 @@ $(function(){
         tileSort.find('.preview').addClass(colorClass);
     });
 
-
     tileSort.sortable({
         items: '.group-separator, .tile',
         disabled: true
@@ -181,20 +180,59 @@ $(function(){
     var elementModal = $('#elementModal');
     var allCategories = $('#allCategories');
     var elementLink = $('#elementLink');
+    var nodeSorting = $('#nodeSorting');
+    var elementTitle = $('#elementTitle');
+    var allMenuNodes = $('#allMenuNodes');
+    var isNewElement = $('#isNewElement');
 
     menuBuilder.on('click', '.expand', function(){
-        var ul = $(this).closest('ul');
         var li = $(this).closest('li.root');
         li.toggleClass('active');
         if (li.hasClass('active')) {
-            ul.find('li.node[data-tree="' + li.data('tree') + '"]').removeClass('hidden');
+            $(this).text('arrow_drop_up');
+            li.find('ul').removeClass('hidden');
         } else {
-            ul.find('li.node[data-tree="' + li.data('tree') + '"]').addClass('hidden');
+            $(this).text('arrow_drop_down');
+            li.find('ul').addClass('hidden');
         }
     });
 
     menuBuilder.on('click', '.settings', function(){
-        alert('TODO: изменение параметров элемента');
+        var itemId = $(this).data('id');
+        isNewElement.val(0);
+        resetMenuFields();
+        elementModal.find('.has-error').removeClass('has-error');
+        $.ajax({
+            type: 'POST',
+            url: 'http://cms/backend/web/index.php?r=menu/edit-element',
+            data: {"itemId": itemId, "_csrf": csrfToken},
+            dataType: 'json',
+            beforeSend: function () {
+                NProgress.start();
+            },
+            success: function(data) {
+                NProgress.done();
+                allMenuNodes.html(data.menuItems);
+                nodeSorting.show();
+                nodeSorting.html(data.subElements);
+                nodeSorting.sortable({
+                    items: '.element'
+                });
+                allMenuNodes.val(data.current.parentId);
+                elementLink.val(data.current.link);
+                elementTitle.val(data.current.name);
+                allCategories.val(data.current.categoryId);
+                elementModal.find('input[name="isCategory"][value="' + data.current.isCategory + '"]').prop('checked', true);
+                if (data.current.isCategory == 1) {
+                    allCategories.show();
+                    elementLink.closest('.input-group').hide();
+                } else {
+                    allCategories.hide();
+                    elementLink.closest('.input-group').show();
+                }
+                elementModal.arcticmodal();
+            }
+        });
     });
 
     elementModal.find('input[name="isCategory"]').on('change', function(){
@@ -212,15 +250,16 @@ $(function(){
 
     allCategories.on('change', function(){
         var optionSelected = $("option:selected", this);
-        $("#elementTitle").val(optionSelected.data('title'));
+        elementTitle.val(optionSelected.data('title'));
     });
 
-    $('#addRootElement').on('click', function(){
+    $('#addElement').on('click', function(){
         resetMenuFields();
+        isNewElement.val(1);
         elementModal.find('.has-error').removeClass('has-error');
         $.ajax({
             type: 'POST',
-            url: 'http://cms/backend/web/index.php?r=menu/get-all-elements',
+            url: 'http://cms/backend/web/index.php?r=menu/new-element',
             data: {"_csrf": csrfToken},
             dataType: 'json',
             beforeSend: function () {
@@ -228,22 +267,23 @@ $(function(){
             },
             success: function(data) {
                 NProgress.done();
-                $('#allMenuNodes').html(data.menuItems);
+                nodeSorting.hide();
+                allMenuNodes.html(data.menuItems);
                 elementModal.arcticmodal();
             }
         });
     });
-    $('#saveRootElement').on('click', function(){
-        var elemTitle = $('#elementTitle');
+
+    $('#saveElement').on('click', function(){
         elementModal.find('.has-error').removeClass('has-error');
         var error = false;
-        var parentId = $('#allMenuNodes').val();
-        var name = elemTitle.val().trim();
+        var parentId = allMenuNodes.val();
+        var name = elementTitle.val().trim();
         var categoryId = allCategories.val();
         var isCategory = elementModal.find('input[name="isCategory"]:checked').val();
         if (name.length == 0) {
             error = true;
-            elemTitle.closest('.input-group').addClass('has-error');
+            elementTitle.closest('.input-group').addClass('has-error');
         }
         if ((elementLink.val().trim().length == 0) && isCategory == 0) {
             error = true;
@@ -251,19 +291,26 @@ $(function(){
         }
         if ((categoryId == 0 || categoryId == null) && isCategory == 1) {
             error = true;
-            console.log(3);
             allCategories.addClass('has-error');
+        }
+        var sorting = {};
+        if (isNewElement.val() == 0) {
+            nodeSorting.find('.element').each(function(i, e){
+                sorting[i] = $(e).data('id');
+            });
         }
         if (!error) {
             $.ajax({
                 type: "POST",
-                url: "http://cms/backend/web/index.php?r=menu/add-element",
+                url: "http://cms/backend/web/index.php?r=menu/save-element",
                 data: {
                     "name": name,
                     "link": elementLink.val().trim(),
                     "parentId": parentId,
                     "isCategory": isCategory,
                     "categoryId": categoryId,
+                    "isNewElement": isNewElement.val(),
+                    "sorting": sorting,
                     "_csrf": csrfToken
                 },
                 dataType: 'json',

@@ -38,13 +38,13 @@ $this->params['breadcrumbs'][] = $this->title;
 //    echo '</ul>';
 //}
 //echo '</li>';
-//echo '</ul>';
+//echo '</ul>';die();
 // TODO: изменение параметров элемента и изменение сортировки в пределах одного depth
 ?>
 <h1><?= Yii::t('app/menu', 'Menu Builder') ?></h1>
 
 <p>
-    <button type="button" class="btn btn-success" id="addRootElement"><?= Yii::t('app/menu', 'Add Root Element') ?></button>
+    <button type="button" class="btn btn-success" id="addElement"><?= Yii::t('app/menu', 'Add Element') ?></button>
 </p>
 
 <p>
@@ -184,7 +184,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <br />
 
-            <button type="button" class="btn btn-success" id="saveRootElement"><?= Yii::t('app', 'Add') ?></button>
+            <div id="nodeSorting" style="display: none;">
+                <div class="element">Title</div>
+                <div class="element">Title</div>
+            </div>
+
+            <br />
+
+            <input type="hidden" id="isNewElement" value="1" />
+            <button type="button" class="btn btn-success" id="saveElement"><?= Yii::t('app', 'Save') ?></button>
         </div>
     </div>
 </div>
