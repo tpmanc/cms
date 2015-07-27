@@ -53,7 +53,7 @@ $(function(){
             });
             $.ajax({
                 type: "POST",
-                url: "http://cms/backend/web/index.php?r=ajax/save-dashboard",
+                url: "/backend/web/index.php?r=ajax/save-dashboard",
                 data: {"info": JSON.stringify(arr), "_csrf": csrfToken},
                 dataType: 'json',
                 beforeSend: function(){
@@ -183,7 +183,7 @@ $(function(){
     var nodeSorting = $('#nodeSorting');
     var elementTitle = $('#elementTitle');
     var allMenuNodes = $('#allMenuNodes');
-    var isNewElement = $('#isNewElement');
+    var elementId = $('#elementId');
 
     menuBuilder.on('click', '.expand', function(){
         var li = $(this).closest('li.root');
@@ -199,12 +199,12 @@ $(function(){
 
     menuBuilder.on('click', '.settings', function(){
         var itemId = $(this).data('id');
-        isNewElement.val(0);
+        elementId.val(itemId);
         resetMenuFields();
         elementModal.find('.has-error').removeClass('has-error');
         $.ajax({
             type: 'POST',
-            url: 'http://cms/backend/web/index.php?r=menu/edit-element',
+            url: '/backend/web/index.php?r=menu/edit-element',
             data: {"itemId": itemId, "_csrf": csrfToken},
             dataType: 'json',
             beforeSend: function () {
@@ -255,11 +255,11 @@ $(function(){
 
     $('#addElement').on('click', function(){
         resetMenuFields();
-        isNewElement.val(1);
+        elementId.val(0);
         elementModal.find('.has-error').removeClass('has-error');
         $.ajax({
             type: 'POST',
-            url: 'http://cms/backend/web/index.php?r=menu/new-element',
+            url: '/backend/web/index.php?r=menu/new-element',
             data: {"_csrf": csrfToken},
             dataType: 'json',
             beforeSend: function () {
@@ -277,10 +277,14 @@ $(function(){
     $('#saveElement').on('click', function(){
         elementModal.find('.has-error').removeClass('has-error');
         var error = false;
+        var id = 0;
         var parentId = allMenuNodes.val();
         var name = elementTitle.val().trim();
         var categoryId = allCategories.val();
         var isCategory = elementModal.find('input[name="isCategory"]:checked').val();
+        if (isCategory == 0) {
+            categoryId = 0;
+        }
         if (name.length == 0) {
             error = true;
             elementTitle.closest('.input-group').addClass('has-error');
@@ -294,7 +298,7 @@ $(function(){
             allCategories.addClass('has-error');
         }
         var sorting = {};
-        if (isNewElement.val() == 0) {
+        if (elementId.val() != 0) {
             nodeSorting.find('.element').each(function(i, e){
                 sorting[i] = $(e).data('id');
             });
@@ -302,14 +306,14 @@ $(function(){
         if (!error) {
             $.ajax({
                 type: "POST",
-                url: "http://cms/backend/web/index.php?r=menu/save-element",
+                url: "/backend/web/index.php?r=menu/save-element",
                 data: {
                     "name": name,
                     "link": elementLink.val().trim(),
                     "parentId": parentId,
                     "isCategory": isCategory,
                     "categoryId": categoryId,
-                    "isNewElement": isNewElement.val(),
+                    "elementId": elementId.val(),
                     "sorting": sorting,
                     "_csrf": csrfToken
                 },

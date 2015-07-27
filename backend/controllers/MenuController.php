@@ -37,7 +37,7 @@ class MenuController extends \yii\web\Controller
             $link = $post['link'];
             $isCategory = $post['isCategory'];
             $categoryId = $post['categoryId'];
-            if ($post['isNewElement'] == 1) {
+            if ($post['elementId'] == 0) {
                 if ($isCategory == 1) {
                     $fields = [
                         'name' => $name,
@@ -67,6 +67,23 @@ class MenuController extends \yii\web\Controller
                 }
             } else {
                 // TODO: сохранение изменений
+                $elem = Menu::find(['id' => $post['elementId']])->one();
+                if ($elem === null) {
+                    return ['error' => true];
+                }
+                $elem->name = $name;
+                $elem->link = $link;
+                $elem->isCategory = $isCategory;
+                $elem->categoryId = $categoryId;
+                $elem->save();
+                // sorting
+                $first = Menu::find(['id' => $post['sorting'][0]])->one();
+                $first->prependTo($elem);
+                $count = count($post['sorting']) - 1;
+                for ($i = 1; $i < $count; $i++) {
+                    $sub = Menu::find(['id' => $post['sorting'][$i]])->one();
+                    $sub->prependTo($elem);
+                }
             }
 
             return [

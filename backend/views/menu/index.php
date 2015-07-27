@@ -191,7 +191,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <br />
 
-            <input type="hidden" id="isNewElement" value="1" />
+            <input type="hidden" id="elementId" value="0" />
             <button type="button" class="btn btn-success" id="saveElement"><?= Yii::t('app', 'Save') ?></button>
         </div>
     </div>

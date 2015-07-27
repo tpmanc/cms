@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use common\models\Category;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Product */
@@ -13,6 +14,12 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'mainCategory')->dropDownList(Category::generateSelectBox()) ?>
+
+    <?= $form->field($model, 'additionalCategories')->listBox(Category::generateSelectBox($model->mainCategory, false), [
+        'multiple' => true,
+    ]) ?>
 
     <?= $form->field($model, 'description')->widget(\yii\redactor\widgets\Redactor::className(), [
         'clientOptions' => [

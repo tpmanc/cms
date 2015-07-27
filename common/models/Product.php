@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use common\models\Category;
+use common\models\productCategories;
 
 /**
  * This is the model class for table "product".
@@ -28,6 +30,14 @@ use Yii;
  */
 class Product extends \yii\db\ActiveRecord
 {
+    public $mainCategory;
+
+    public $additionalCategories = [];
+
+    const IS_MAIN_CATEGORY = 1;
+
+    const IS_ADDITIONAL_CATEGORY = 0;
+
     /**
      * @inheritdoc
      */
@@ -42,10 +52,12 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'price', 'chpu', 'fakeInStock', 'isDisabled'], 'required'],
-            [['netCost', 'price', 'discount', 'fakeInStock', 'isDisabled'], 'integer'],
+            [['title', 'price', 'chpu', 'fakeInStock', 'isDisabled', 'mainCategory'], 'required'],
+            [['netCost', 'price', 'discount', 'fakeInStock', 'isDisabled', 'mainCategory'], 'integer'],
+            ['mainCategory', 'compare', 'compareValue' => 0, 'operator' => '!=', 'message' => Yii::t('app/product', 'Select Main Category')],
             [['description', 'shortDescription'], 'string'],
             [['length', 'width', 'height', 'weight'], 'number'],
+            ['additionalCategories', 'each', 'rule' => ['integer']],
             ['chpu', 'unique'],
             ['chpu', 'match',
                 'pattern' => '/^[A-Za-z0-9\-\_]+$/i',
@@ -72,6 +84,8 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'mainCategory' => Yii::t('app/product', 'Main Category'),
+            'additionalCategories' => Yii::t('app/product', 'Additional Categories'),
             'title' => Yii::t('app/product', 'Title'),
             'description' => Yii::t('app/product', 'Description'),
             'shortDescription' => Yii::t('app/product', 'Short Description'),
@@ -90,5 +104,42 @@ class Product extends \yii\db\ActiveRecord
             'fakeInStock' => Yii::t('app/product', 'Fake In Stock'),
             'isDisabled' => Yii::t('app/product', 'Is Disabled'),
         ];
+    }
+
+    public function getCategories()
+    {
+        return $this->hasMany(productCategories::className(), ['productId' => 'id']);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function afterSave($insert)
+    {
+        productCategories::deleteAll(['productId' => $this->id]);
+        // save main category
+        $mainCat = $this->mainCategory;
+        if ($mainCat != 0) {
+            $mainCategory = new productCategories();
+            $mainCategory->productId = $this->id;
+            $mainCategory->categoryId = $mainCat;
+            $mainCategory->isMainCategory = self::IS_MAIN_CATEGORY;
+            $mainCategory->save();
+        }
+        // save additional categories
+        $addCats = $this->additionalCategories;
+        if (is_array($addCats)) {
+            foreach ($addCats as $categoryId) {
+                if ($categoryId != $mainCat) {
+                    $category = new productCategories();
+                    $category->productId = $this->id;
+                    $category->categoryId = $categoryId;
+                    $category->isMainCategory = self::IS_ADDITIONAL_CATEGORY;
+                    $category->save();
+                }
+            }
+        }
+
+        return parent::beforeSave($insert);
     }
 }

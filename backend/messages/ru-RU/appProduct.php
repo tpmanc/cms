@@ -2,6 +2,8 @@
 return [
     // model
     'Title' => 'Название',
+    'Main Category' => 'Главная категория',
+    'Additional Categories' => 'Дополнительные категории',
     'Description' => 'Описание',
     'Short Description' => 'Короткое описание',
     'Net Cost' => 'Себестоимость',
@@ -20,4 +22,5 @@ return [
     'Create Product' => 'Добавить товар',
     'Update Product' => 'Изменить товар',
     'Chpu is invalid. Should contain only "0-9", "A-Z", "a-z", "-", "_"' => 'Значение ЧПУ неверно. ЧПУ должно состоять из "0-9", "A-Z", "a-z", "-", "_"',
+    'Select Main Category' => 'Выберите главную категорию',
 ];

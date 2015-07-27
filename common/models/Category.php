@@ -87,13 +87,16 @@ class Category extends \yii\db\ActiveRecord
         return parent::beforeSave($insert);
     }
 
-    public static function generateSelectBox($currentCategory = false)
+    public static function generateSelectBox($excludeCategory = false, $addEmpty = true)
     {
-        $result = [0 => ''];
+        $result = [];
+        if ($addEmpty) {
+            $result = [0 => ''];
+        }
         $models = self::find()->all();
         if ($models !== null) {
             foreach ($models as $m) {
-                if ($m->id !== $currentCategory) {
+                if ($m->id !== $excludeCategory) {
                     $result[$m->id] = $m->title;
                 }
             }
