@@ -44,6 +44,7 @@ return [
                         'app/staticPage' => 'appStaticPage.php',
                         'app/category' => 'appCategory.php',
                         'app/deliveryType' => 'appDeliveryType.php',
+                        'app/paymentType' => 'appPaymentType.php',
                         'app/product' => 'appProduct.php',
                         'app/menu' => 'appMenu.php',
                         'app/error' => 'error.php',
