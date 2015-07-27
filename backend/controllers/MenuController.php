@@ -66,8 +66,7 @@ class MenuController extends \yii\web\Controller
                     $elem->appendTo($parent);
                 }
             } else {
-                // TODO: сохранение изменений
-                $elem = Menu::find(['id' => $post['elementId']])->one();
+                $elem = Menu::findOne(['id' => $post['elementId']]);
                 if ($elem === null) {
                     return ['error' => true];
                 }
@@ -77,26 +76,53 @@ class MenuController extends \yii\web\Controller
                 $elem->categoryId = $categoryId;
                 $elem->save();
                 // sorting
-                $first = Menu::find(['id' => $post['sorting'][0]])->one();
+                $first = Menu::findOne(['id' => $post['sorting'][0]]);
                 $first->prependTo($elem);
-                $count = count($post['sorting']) - 1;
+                $count = count($post['sorting']);
                 for ($i = 1; $i < $count; $i++) {
-                    $sub = Menu::find(['id' => $post['sorting'][$i]])->one();
-                    $sub->prependTo($elem);
+                    $sub = Menu::findOne(['id' => $post['sorting'][$i]]);
+                    $sub->appendTo($elem);
                 }
             }
 
-            return [
-                'name' => $name,
-                'link' => $link,
-                'isCategory' => $isCategory,
-                'categoryId' => $categoryId,
-            ];
+            // TODO: return new elements
+            return [];
         } else {
             throw new NotFoundHttpException('Not Found');
         }
     }
 
+    /**
+     * Save root elements sorting
+     */
+    public function actionRootSorting()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        if (Yii::$app->request->isAjax) {
+            if (empty(Yii::$app->request->post())) {
+                return [
+                    'error' => true,
+                    'msg' => 'bad request',
+                ];
+            }
+            $post = Yii::$app->request->post();
+            $first = Menu::findOne(['id' => $post['sorting'][0]]);
+            $count = count($post['sorting']);
+            for ($i = 1; $i < $count; $i++) {
+                $sub = Menu::findOne(['id' => $post['sorting'][$i]]);
+                $sub->insertAfter($first);
+            }
+
+            // TODO: return new elements
+            return [];
+        } else {
+            throw new NotFoundHttpException('Not Found');
+        }
+    }
+
+    /**
+     * Edit existing element
+     */
     public function actionEditElement()
     {
         Yii::$app->response->format = Response::FORMAT_JSON;

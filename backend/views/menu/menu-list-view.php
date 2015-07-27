@@ -66,8 +66,9 @@ foreach($menu as $n=>$category) {
     }
 
     if ($category->depth == 0) {
-        echo '<li class="info root">
+        echo '<li class="info root" data-id="' . $category->id . '">
                 <i class="material-icons expand">arrow_drop_down</i>
+                <i class="material-icons root-sorting">import_export</i>
                 <i class="material-icons settings" data-id="'.$category->id.'">settings</i>';
     } else {
         echo '<li class="" data-id="'.$category->id.'" data-tree="'.$category->tree.'">' . str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', ($category->depth + 1)) . '

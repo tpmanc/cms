@@ -185,6 +185,37 @@ $(function(){
     var allMenuNodes = $('#allMenuNodes');
     var elementId = $('#elementId');
 
+    menuBuilder.sortable({
+        items: '.root',
+        handle: '.root-sorting',
+        update: function(event, ui) {
+            sorting = {};
+            menuBuilder.find('.root').each(function(i, e){
+                sorting[i] = $(e).data('id');
+            });
+            $.ajax({
+                type: "POST",
+                url: "/backend/web/index.php?r=menu/root-sorting",
+                data: {
+                    "sorting": sorting,
+                    "_csrf": csrfToken
+                },
+                dataType: 'json',
+                beforeSend: function () {
+                    NProgress.start();
+                },
+                success: function (data) {
+                    NProgress.done();
+                    // TODO: обновление меню после добавления элемента
+                },
+                complete: function () {
+                    elementModal.removeClass('has-error');
+                    elementModal.arcticmodal('close');
+                }
+            });
+        }
+    });
+
     menuBuilder.on('click', '.expand', function(){
         var li = $(this).closest('li.root');
         li.toggleClass('active');
@@ -323,7 +354,6 @@ $(function(){
                 },
                 success: function (data) {
                     NProgress.done();
-                    menuBuilder.append(data.html);
                     // TODO: обновление меню после добавления элемента
                 },
                 complete: function () {
