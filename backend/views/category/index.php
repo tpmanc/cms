@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => Html::activeDropDownList(
                     $searchModel,
                     'isDisabled',
-                    ['' => '', 0 => Yii::t('app', 'No'), 1 => Yii::t('app', 'Yes')],
+                    ['' => '-', 0 => Yii::t('app', 'No'), 1 => Yii::t('app', 'Yes')],
                     ['class' => 'form-control']
                 ),
             ],

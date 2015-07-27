@@ -32,7 +32,16 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'title',
             'text:ntext',
-            'isDisabled:boolean',
+            [
+                'attribute' => 'isDisabled',
+                'format' => 'boolean',
+                'filter' => Html::activeDropDownList(
+                    $searchModel,
+                    'isDisabled',
+                    ['' => '-', 0 => Yii::t('app', 'No'), 1 => Yii::t('app', 'Yes')],
+                    ['class' => 'form-control']
+                ),
+            ],
 
             [
                 'class' => 'yii\grid\ActionColumn',
