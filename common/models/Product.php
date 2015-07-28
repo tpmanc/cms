@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\Html;
 use common\models\Category;
 use common\models\productCategories;
 
@@ -109,6 +110,26 @@ class Product extends \yii\db\ActiveRecord
     public function getCategories()
     {
         return $this->hasMany(productCategories::className(), ['productId' => 'id']);
+    }
+
+    public function getAdditionalCategoriesModels()
+    {
+        return $this->hasMany(productCategories::className(), ['productId' => 'id'])->where(['isMainCategory' => self::IS_ADDITIONAL_CATEGORY]);
+    }
+
+    public function getMainCategoryModel()
+    {
+        return $this->hasOne(productCategories::className(), ['productId' => 'id'])->where(['isMainCategory' => self::IS_MAIN_CATEGORY]);
+    }
+
+    public function getAdditionalCategoriesString()
+    {
+        $arr = [];
+        $categories = $this->additionalCategoriesModels;
+        foreach ($categories as $c) {
+            $arr[] = Html::a($c->info->title, ['category/view', 'id' => $c->info->id], ['target' => '_blank']);
+        }
+        return implode(', ', $arr);
     }
 
     /**
