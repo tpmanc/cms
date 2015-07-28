@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use common\models\Category;
 
 /**
  * This is the model class for table "productCategories".
@@ -44,5 +45,10 @@ class ProductCategories extends \yii\db\ActiveRecord
             'categoryId' => 'Category ID',
             'isMainCategory' => 'Is Main Category',
         ];
+    }
+
+    public function getInfo()
+    {
+        return $this->hasOne(Category::className(), ['id' => 'categoryId']);
     }
 }

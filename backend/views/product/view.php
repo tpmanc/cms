@@ -28,8 +28,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'mainCategory',
-            'additionalCategories',
+            [
+                'attribute'=>'mainCategory',
+                'format' => 'raw',
+                'value' => Html::a($model->mainCategoryModel->info->title, [
+                        'category/view', 'id' => $model->mainCategoryModel->info->id
+                    ], ['target' => '_blank']),
+            ],
+            [
+                'attribute'=>'additionalCategories',
+                'format' => 'raw',
+                'value' => $model->additionalCategoriesString,
+            ],
             'title',
             'description:raw',
             'shortDescription:raw',
