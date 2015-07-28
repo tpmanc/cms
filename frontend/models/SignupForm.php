@@ -13,6 +13,7 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+    public $repeatPassword;
 
     /**
      * @inheritdoc
@@ -32,6 +33,9 @@ class SignupForm extends Model
 
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
+
+            ['repeatPassword', 'required'],
+            ['repeatPassword', 'compare', 'compareAttribute' => 'password', 'message' => 'Введенные пароли не совпадают'],
         ];
     }
 
