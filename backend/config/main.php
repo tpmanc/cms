@@ -47,6 +47,7 @@ return [
                         'app/paymentType' => 'appPaymentType.php',
                         'app/product' => 'appProduct.php',
                         'app/menu' => 'appMenu.php',
+                        'app/user' => 'appUser.php',
                         'app/error' => 'error.php',
                     ],
                 ],

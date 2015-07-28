@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'id',
                 'options' => [
-                    'width' => 10,
+                    'width' => 70,
                 ],
             ],
             'title',
@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => Html::activeDropDownList(
                     $searchModel,
                     'fakeInStock',
-                    ['' => '', 0 => Yii::t('app', 'No'), 1 => Yii::t('app', 'Yes')],
+                    ['' => '-', 0 => Yii::t('app', 'No'), 1 => Yii::t('app', 'Yes')],
                     ['class' => 'form-control']
                 ),
             ],
@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => Html::activeDropDownList(
                     $searchModel,
                     'isDisabled',
-                    ['' => '', 0 => Yii::t('app', 'No'), 1 => Yii::t('app', 'Yes')],
+                    ['' => '-', 0 => Yii::t('app', 'No'), 1 => Yii::t('app', 'Yes')],
                     ['class' => 'form-control']
                 ),
             ],

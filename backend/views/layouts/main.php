@@ -35,7 +35,7 @@ AppAsset::register($this);
         <li><a href="<?= Url::to(['product/index'])?>"><i class="material-icons">local_grocery_store</i> Товары</a></li>
         <li><a href="#"><i class="material-icons">settings_ethernet</i> UML / XML</a></li>
         <li><a href="#"><i class="material-icons">textsms</i> Отзывы</a></li>
-        <li><a href="#"><i class="material-icons">group</i> Пользователи</a></li>
+        <li><a href="<?= Url::to(['user/index'])?>"><i class="material-icons">group</i> Пользователи</a></li>
     </ul>
 </nav>
 
