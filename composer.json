@@ -4,16 +4,11 @@
     "keywords": ["yii2", "framework", "cms"],
     "type": "project",
     "license": "BSD-3-Clause",
-    "support": {
-    },
     "minimum-stability": "stable",
     "require": {
         "yiisoft/yii2-app-advanced",
         "yiidoc/yii2-redactor": "*",
         "mongosoft/yii2-upload-behavior": "*",
         "creocoder/yii2-nested-sets": "0.9.*"
-    },
-    "config": {
-        "process-timeout": 1800
     }
 }
