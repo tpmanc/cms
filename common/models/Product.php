@@ -6,6 +6,7 @@ use Yii;
 use yii\helpers\Html;
 use common\models\Category;
 use common\models\productCategories;
+use common\models\ProductRests;
 
 /**
  * This is the model class for table "product".
@@ -162,5 +163,13 @@ class Product extends \yii\db\ActiveRecord
         }
 
         return parent::beforeSave($insert);
+    }
+
+    /**
+     * Rests relation
+     */
+    public function getRests()
+    {
+        return $this->hasOne(ProductRests::className(), ['productId' => 'id']);
     }
 }

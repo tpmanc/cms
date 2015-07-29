@@ -45,6 +45,7 @@ return [
                         'app/product' => 'appProduct.php',
                         'app/menu' => 'appMenu.php',
                         'app/user' => 'appUser.php',
+                        'app/productRests' => 'appProductRests.php',
                         'app/error' => 'error.php',
                     ],
                 ],

@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'seoTitle',
             // 'seoDescription',
             // 'seoKeywords',
-             'chpu',
+             // 'chpu',
             [
                 'attribute' => 'fakeInStock',
                 'format' => 'boolean',
@@ -63,6 +63,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     ['' => '-', 0 => Yii::t('app', 'No'), 1 => Yii::t('app', 'Yes')],
                     ['class' => 'form-control']
                 ),
+            ],
+            [
+                'label' => Yii::t('app/productRests', 'Product Rests'),
+                'value' => function ($data) {
+                    $amount = $data->rests->amount;
+                    return ($amount === null) ? 0 : $amount ;
+                },
+                'options' => [
+                    'width' => 70,
+                ],
             ],
 
             [

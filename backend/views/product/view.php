@@ -57,6 +57,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'chpu',
             'fakeInStock:boolean',
             'isDisabled:boolean',
+            [
+                'label' => Yii::t('app/productRests', 'Product Rests'),
+                'value' => ($model->rests->amount === null) ? 0 : $model->rests->amount,
+            ],
         ],
     ]) ?>
 
