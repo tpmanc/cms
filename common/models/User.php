@@ -70,6 +70,8 @@ class User extends ActiveRecord implements IdentityInterface
             ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
 
             ['password', 'string', 'min' => 6],
+
+            ['role', 'default', 'value' => self::DEFAULT_ROLE],
         ];
     }
 

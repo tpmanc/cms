@@ -30,9 +30,6 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        'authManager' => [
-            'class' => 'yii\rbac\DbManager',
-        ],
         'i18n' => [
             'translations' => [
                 'app*' => [
