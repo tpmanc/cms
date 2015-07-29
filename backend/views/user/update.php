@@ -5,12 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
 
-$this->title = Yii::t('app/user', 'Update {modelClass}: ', [
-    'modelClass' => 'User',
-]) . ' ' . $model->id;
+$this->title = Yii::t('app/user', 'Update User') . ': ' . $model->username;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app/user', 'Users'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('app/user', 'Update');
+$this->params['breadcrumbs'][] = ['label' => $model->username, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="user-update">
 
@@ -18,6 +16,9 @@ $this->params['breadcrumbs'][] = Yii::t('app/user', 'Update');
 
     <?= $this->render('_form', [
         'model' => $model,
+        'roles' => $roles,
+        'userRole' => $userRole,
+        'errors' => $errors,
     ]) ?>
 
 </div>

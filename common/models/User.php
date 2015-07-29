@@ -26,6 +26,11 @@ class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
+    const DEFAULT_ROLE = 'user';
+
+    public $password;
+    public $repeatPassword;
+    public $role;
 
     /**
      * @inheritdoc
@@ -53,6 +58,18 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+
+            ['username', 'filter', 'filter' => 'trim'],
+            ['username', 'required'],
+            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'string', 'min' => 2, 'max' => 255],
+
+            ['email', 'filter', 'filter' => 'trim'],
+            ['email', 'required'],
+            ['email', 'email'],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+
+            ['password', 'string', 'min' => 6],
         ];
     }
 
@@ -190,5 +207,26 @@ class User extends ActiveRecord implements IdentityInterface
     public function getAuthAssignment()
     {
         return $this->hasOne(AuthAssignment::className(), ['user_id' => 'id']);
+    }
+
+    public function getRolesArray()
+    {
+        $arr = [];
+        $roles = Yii::$app->authManager->getRolesByUser($this->id);
+        foreach ($roles as $role) {
+            $arr[] = $role->name;
+        }
+        return $arr;
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        $auth = Yii::$app->authManager;
+        $auth->revokeAll($this->id);
+        $role = $auth->getRole($this->role);
+        if ($role !== null) {
+            $auth->assign($role, $this->id);
+        }
+        parent::afterSave($insert, $changedAttributes);
     }
 }

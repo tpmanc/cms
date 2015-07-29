@@ -62,13 +62,18 @@ class UserController extends Controller
     {
         $model = new User();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        if (Yii::$app->request->isPost) {
+            if ($this->saveModelInfo($model, Yii::$app->request->post()['User'])) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
+        $errors = $model->errors;
+        return $this->render('create', [
+            'model' => $model,
+            'roles' => $this->getRoles(),
+            'errors' => $errors,
+            'userRole' => $this->getUserRole($model->id),
+        ]);
     }
 
     /**
@@ -81,13 +86,18 @@ class UserController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        if (Yii::$app->request->isPost) {
+            if ($this->saveModelInfo($model, Yii::$app->request->post()['User'])) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
+        $errors = $model->errors;
+        return $this->render('update', [
+            'model' => $model,
+            'roles' => $this->getRoles(),
+            'errors' => $errors,
+            'userRole' => $this->getUserRole($model->id),
+        ]);
     }
 
     /**
@@ -117,5 +127,44 @@ class UserController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    private function getRoles()
+    {
+        $roles = [];
+        $arr = Yii::$app->authManager->getRoles();
+        foreach ($arr as $role) {
+            $roles[$role->name] = $role->name;
+        }
+        return $roles;
+    }
+
+    private function getUserRole($userId)
+    {
+        $role = User::DEFAULT_ROLE;
+        $roles = Yii::$app->authManager->getRolesByUser($userId);
+        foreach ($roles as $r) {
+            $role = $r->name;
+            break;
+        }
+        return $role;
+    }
+
+    private function saveModelInfo($model, $userPost)
+    {
+        $model->username = $userPost['username'];
+        $model->email = $userPost['email'];
+        $model->role = $userPost['role'];
+        $model->password = $userPost['password'];
+        if ($model->validate()) {
+            if ($model->password != '') {
+                $model->setPassword($userPost['password']);
+            }
+            $model->generateAuthKey();
+            if ($model->save()) {
+                return true;
+            }
+        }
+        return false;
     }
 }
