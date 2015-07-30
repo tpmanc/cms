@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\Product;
+use common\models\Category;
 use common\models\ProductSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -82,7 +83,7 @@ class ProductController extends Controller
         $model = $this->findModel($id);
         $categories = $model->categories;
         foreach ($categories as $c) {
-            if ($c->isMainCategory == Product::IS_MAIN_CATEGORY) {
+            if ($c->isMainCategory == Category::IS_MAIN_CATEGORY) {
                 $model->mainCategory = $c->categoryId;
             } else {
                 $model->additionalCategories[] = $c->categoryId;

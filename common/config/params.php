@@ -1,6 +1,6 @@
 <?php
-Yii::setAlias('@upload', realpath(dirname(__FILE__) . '/../../upload'));
 Yii::setAlias('@frontend', realpath(dirname(__FILE__) . '/../../frontend'));
+Yii::setAlias('@upload', realpath(dirname(__FILE__) . '/../../frontend/web/upload'));
 
 return [
     'adminEmail' => 'admin@example.com',

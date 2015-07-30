@@ -7,6 +7,7 @@ use yii\helpers\Html;
 use common\models\Category;
 use common\models\productCategories;
 use common\models\ProductRests;
+use tpmanc\filebehavior\FileBehavior;
 
 /**
  * This is the model class for table "product".
@@ -36,9 +37,7 @@ class Product extends \yii\db\ActiveRecord
 
     public $additionalCategories = [];
 
-    const IS_MAIN_CATEGORY = 1;
-
-    const IS_ADDITIONAL_CATEGORY = 0;
+    public $file;
 
     /**
      * @inheritdoc
@@ -46,6 +45,32 @@ class Product extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'product';
+    }
+
+    public function behaviors()
+    {
+        return [
+            'FileBehavior' => [
+                'class' => FileBehavior::className(),
+                'fileModel' => 'common\models\Image',
+                'fileLinkModel' => 'common\models\productImage',
+                'fileVar' => 'file',
+                'fileType' => 'image',
+                'fileFolder' => '@upload/product',
+                'imageSizes' => [
+                    'original' => [
+                        'width' => 800,
+                        'height' => 600,
+                        'folder' => 'original',
+                    ],
+                    'small' => [
+                        'width' => 800,
+                        'height' => 600,
+                        'folder' => 'small',
+                    ],
+                ],
+            ],
+        ];
     }
 
     /**
@@ -76,6 +101,7 @@ class Product extends \yii\db\ActiveRecord
                 'default',
                 'value' => '',
             ],
+            ['file', 'file', 'extensions' => ['png', 'jpg'], 'maxSize' => 1024*1024*1024],
         ];
     }
 
@@ -115,12 +141,12 @@ class Product extends \yii\db\ActiveRecord
 
     public function getAdditionalCategoriesModels()
     {
-        return $this->hasMany(productCategories::className(), ['productId' => 'id'])->where(['isMainCategory' => self::IS_ADDITIONAL_CATEGORY]);
+        return $this->hasMany(productCategories::className(), ['productId' => 'id'])->where(['isMainCategory' => Category::IS_ADDITIONAL_CATEGORY]);
     }
 
     public function getMainCategoryModel()
     {
-        return $this->hasOne(productCategories::className(), ['productId' => 'id'])->where(['isMainCategory' => self::IS_MAIN_CATEGORY]);
+        return $this->hasOne(productCategories::className(), ['productId' => 'id'])->where(['isMainCategory' => Category::IS_MAIN_CATEGORY]);
     }
 
     public function getAdditionalCategoriesString()
@@ -136,7 +162,7 @@ class Product extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function afterSave($insert)
+    public function afterSave($insert, $changedAttributes)
     {
         productCategories::deleteAll(['productId' => $this->id]);
         // save main category
@@ -145,7 +171,7 @@ class Product extends \yii\db\ActiveRecord
             $mainCategory = new productCategories();
             $mainCategory->productId = $this->id;
             $mainCategory->categoryId = $mainCat;
-            $mainCategory->isMainCategory = self::IS_MAIN_CATEGORY;
+            $mainCategory->isMainCategory = Category::IS_MAIN_CATEGORY;
             $mainCategory->save();
         }
         // save additional categories
@@ -156,13 +182,13 @@ class Product extends \yii\db\ActiveRecord
                     $category = new productCategories();
                     $category->productId = $this->id;
                     $category->categoryId = $categoryId;
-                    $category->isMainCategory = self::IS_ADDITIONAL_CATEGORY;
+                    $category->isMainCategory = Category::IS_ADDITIONAL_CATEGORY;
                     $category->save();
                 }
             }
         }
 
-        return parent::beforeSave($insert);
+        parent::afterSave($insert, $changedAttributes);
     }
 
     /**

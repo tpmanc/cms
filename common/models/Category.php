@@ -23,6 +23,9 @@ use Yii;
  */
 class Category extends \yii\db\ActiveRecord
 {
+    const IS_MAIN_CATEGORY = 1;
+    const IS_ADDITIONAL_CATEGORY = 0;
+    
     /**
      * @inheritdoc
      */
