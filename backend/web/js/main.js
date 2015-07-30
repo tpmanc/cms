@@ -363,6 +363,13 @@ $(function(){
             });
         }
     });
+
+
+    //
+    $('#addProduct').on('click', function(){
+        var line = $(this).closest('.products-holder').find('.product-line').eq(0).clone();
+        $(this).closest('.products-holder').append(line);
+    });
 });
 
 function getColorClass(classesString) {

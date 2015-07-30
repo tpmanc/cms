@@ -46,6 +46,8 @@ return [
                         'app/menu' => 'appMenu.php',
                         'app/user' => 'appUser.php',
                         'app/productRests' => 'appProductRests.php',
+                        'app/order' => 'appOrder.php',
+                        'app/orderProducts' => 'appOrderProducts.php',
                         'app/error' => 'error.php',
                     ],
                 ],

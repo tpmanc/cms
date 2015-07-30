@@ -3,16 +3,17 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\DeliveryType;
-use common\models\DeliveryTypeSearch;
+use common\models\Order;
+use common\models\OrderSearch;
+use common\models\OrderProducts;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * DeliveryTypeController implements the CRUD actions for DeliveryType model.
+ * OrderController implements the CRUD actions for Order model.
  */
-class DeliveryTypeController extends Controller
+class OrderController extends Controller
 {
     public function behaviors()
     {
@@ -27,12 +28,12 @@ class DeliveryTypeController extends Controller
     }
 
     /**
-     * Lists all DeliveryType models.
+     * Lists all Order models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new DeliveryTypeSearch();
+        $searchModel = new OrderSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -42,7 +43,7 @@ class DeliveryTypeController extends Controller
     }
 
     /**
-     * Displays a single DeliveryType model.
+     * Displays a single Order model.
      * @param integer $id
      * @return mixed
      */
@@ -54,25 +55,27 @@ class DeliveryTypeController extends Controller
     }
 
     /**
-     * Creates a new DeliveryType model.
+     * Creates a new Order model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new DeliveryType();
+        $model = new Order();
+        $orderProducts = new OrderProducts();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'orderProducts' => $orderProducts,
             ]);
         }
     }
 
     /**
-     * Updates an existing DeliveryType model.
+     * Updates an existing Order model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -91,7 +94,7 @@ class DeliveryTypeController extends Controller
     }
 
     /**
-     * Deletes an existing DeliveryType model.
+     * Deletes an existing Order model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -104,15 +107,15 @@ class DeliveryTypeController extends Controller
     }
 
     /**
-     * Finds the DeliveryType model based on its primary key value.
+     * Finds the Order model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return DeliveryType the loaded model
+     * @return Order the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = DeliveryType::findOne($id)) !== null) {
+        if (($model = Order::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

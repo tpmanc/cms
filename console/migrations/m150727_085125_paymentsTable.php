@@ -17,7 +17,7 @@ class m150727_085125_paymentsTable extends Migration
 
     public function down()
     {
-        $this->dropTabele('paymentType');
+        $this->dropTable('paymentType');
     }
     
     /*

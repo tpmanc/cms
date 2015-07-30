@@ -1,14 +1,14 @@
 <?php
 
-namespace backend\models;
+namespace common\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\DeliveryType;
+use common\models\DeliveryType;
 
 /**
- * DeliveryTypeSearch represents the model behind the search form about `backend\models\DeliveryType`.
+ * DeliveryTypeSearch represents the model behind the search form about `common\models\DeliveryType`.
  */
 class DeliveryTypeSearch extends DeliveryType
 {
