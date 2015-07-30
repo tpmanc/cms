@@ -82,6 +82,7 @@ class ProductController extends Controller
     {
         $model = $this->findModel($id);
         $categories = $model->categories;
+
         foreach ($categories as $c) {
             if ($c->isMainCategory == Category::IS_MAIN_CATEGORY) {
                 $model->mainCategory = $c->categoryId;

@@ -15,12 +15,11 @@
     "minimum-stability": "stable",
     "require": {
         "php": ">=5.4.0",
-        "yiisoft/yii2": ">=2.0.4",
+        "yiisoft/yii2": "2.0.5",
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
         "yiidoc/yii2-redactor": "*",
         "yiisoft/yii2-imagine": "^2.0",
-        "mongosoft/yii2-upload-behavior": "*",
         "creocoder/yii2-nested-sets": "0.9.*",
         "tpmanc/yii2-file-behavior": "*"
     },

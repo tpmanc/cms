@@ -366,9 +366,31 @@ $(function(){
 
 
     //
+    var productsHolder = $('#productsHolder');
     $('#addProduct').on('click', function(){
-        var line = $(this).closest('.products-holder').find('.product-line').eq(0).clone();
-        $(this).closest('.products-holder').append(line);
+        $.ajax({
+            type: "POST",
+            url: "/backend/web/index.php?r=order/get-product-line",
+            data: {
+                "_csrf": csrfToken
+            },
+            dataType: 'json',
+            beforeSend: function () {
+                NProgress.start();
+            },
+            success: function (data) {
+                NProgress.done();
+                productsHolder.append(data);
+            },
+            complete: function () {
+                elementModal.removeClass('has-error');
+                elementModal.arcticmodal('close');
+            }
+        });
+    });
+
+    productsHolder.on('click', '.remove-product-line', function(){
+        $(this).closest('.product-line').remove();
     });
 });
 

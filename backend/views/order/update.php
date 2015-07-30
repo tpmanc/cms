@@ -19,6 +19,7 @@ $this->params['breadcrumbs'][] = Yii::t('app/order', 'Update');
     <?= $this->render('_form', [
         'model' => $model,
         'orderProducts' => $orderProducts,
+        'productDropDown' => $productDropDown,
     ]) ?>
 
 </div>

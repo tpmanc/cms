@@ -23,7 +23,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            'id',
+            [
+                'attribute' => 'id',
+                'options' => [
+                    'width' => 70,
+                ],
+            ],
             // 'orderProductsId',
             'name',
             'adress',
@@ -36,7 +41,12 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'discount',
             'totalPrice',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'options' => [
+                    'width' => 70,
+                ],
+            ],
         ],
     ]); ?>
 

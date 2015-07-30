@@ -17,35 +17,16 @@ use common\models\Product;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <div class="products-holder">
-        <div class="product-line">
-            <div class="form-group field-order-name col-md-10 col-lg-10 required">
-                <label class="control-label"><?= Yii::t('app/order', 'Products') ?></label>
-                <?= Html::dropDownList(
-                    'products[]',
-                    null,
-                    ArrayHelper::map(Product::find()->where(['isDisabled' => 0])->asArray()->all(), 'id', 'title'),
-                    [
-                        'class' => 'form-control',
-                ]) ?>
-
-                <div class="help-block"></div>
-            </div>
-            <div class="form-group field-order-name col-md-2 col-lg-2 required">
-                <label class="control-label"><?= Yii::t('app/order', 'Amount') ?></label>
-                <?= Html::input(
-                    'text',
-                    'amounts[]',
-                    1,
-                    [
-                        'class' => 'form-control',
-                ]) ?>
-
-                <div class="help-block"></div>
-            </div>
-            <div id="addProduct"></div>
-        </div>
+    <div class="products-holder" id="productsHolder">
+        <?= $this->render('_product-line', [
+            'productDropDown' => $productDropDown,
+        ]) ?>
     </div>
+    <div class="clearfix"></div>
+    <button type="button" class="btn btn-success" id="addProduct"><?= Yii::t('app/order', 'Add Product') ?></button>
+
+    <br />
+    <br />
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => 255]) ?>
 

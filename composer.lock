@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8986a137a3d5958a8b5439b35e1b4090",
+    "hash": "24f4528358bfcbf60fbe484f1c27bfee",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -409,70 +409,17 @@
             "time": "2013-11-30 08:25:19"
         },
         {
-            "name": "mongosoft/yii2-upload-behavior",
-            "version": "0.1.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mongosoft/yii2-upload-behavior.git",
-                "reference": "8868928ae53ecc8e73eca4ec873a4ea2c3ec984a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mongosoft/yii2-upload-behavior/zipball/8868928ae53ecc8e73eca4ec873a4ea2c3ec984a",
-                "reference": "8868928ae53ecc8e73eca4ec873a4ea2c3ec984a",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0",
-                "yiisoft/yii2": "*",
-                "yiisoft/yii2-imagine": "*"
-            },
-            "require-dev": {
-                "phpunit/dbunit": "~1.0",
-                "phpunit/phpunit": "~4.0"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "mongosoft\\file\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD 3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Alexander Mohorev",
-                    "email": "dev.mohorev@gmail.com"
-                }
-            ],
-            "description": "Upload behavior for Yii 2",
-            "homepage": "https://github.com/mongosoft/yii2-upload-behavior",
-            "keywords": [
-                "Behavior",
-                "extension",
-                "file",
-                "image",
-                "resize",
-                "thumb",
-                "upload",
-                "yii2"
-            ],
-            "time": "2015-05-25 20:44:14"
-        },
-        {
             "name": "tpmanc/yii2-file-behavior",
-            "version": "v1.2",
+            "version": "v1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tpmanc/yii2-file-behavior.git",
-                "reference": "73ec5f5d9ee07af3baa0202a62c0ce7d7c88e130"
+                "reference": "6f5620add2cd621d02a88e7c21fa1b667c37e8b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tpmanc/yii2-file-behavior/zipball/73ec5f5d9ee07af3baa0202a62c0ce7d7c88e130",
-                "reference": "73ec5f5d9ee07af3baa0202a62c0ce7d7c88e130",
+                "url": "https://api.github.com/repos/tpmanc/yii2-file-behavior/zipball/6f5620add2cd621d02a88e7c21fa1b667c37e8b3",
+                "reference": "6f5620add2cd621d02a88e7c21fa1b667c37e8b3",
                 "shasum": ""
             },
             "require": {
@@ -482,7 +429,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "tpmanc\\file-behavior\\": ""
+                    "tpmanc\\filebehavior\\": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -506,7 +453,7 @@
                 "upload",
                 "yii"
             ],
-            "time": "2015-07-30 08:39:42"
+            "time": "2015-07-30 12:54:12"
         },
         {
             "name": "yiidoc/yii2-redactor",

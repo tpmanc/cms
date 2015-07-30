@@ -24,6 +24,8 @@ use common\models\OrderProducts;
  * @property OrderProducts[] $orderProducts
  */
 // TODO: быстрый заказ и обратный звонок
+// TODO: стоимость доставки
+// TODO: сумма заказа
 class Order extends \yii\db\ActiveRecord
 {
     /**
@@ -77,14 +79,5 @@ class Order extends \yii\db\ActiveRecord
     public function getOrderProducts()
     {
         return $this->hasMany(OrderProducts::className(), ['orderId' => 'id']);
-    }
-
-    public function beforeSave($insert)
-    {
-        if ($this->isNewRecord) {
-            // $products = new OrderProducts();
-        }
-     
-        return parent::beforeSave($insert);
     }
 }
