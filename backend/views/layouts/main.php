@@ -29,13 +29,18 @@ AppAsset::register($this);
         <i class="material-icons">account_circle</i> <?= Yii::$app->user->identity->username?> (выйти)
     </div>
     <ul>
-        <li><a href="<?= Url::to(['static-page/index'])?>"><i class="material-icons">insert_drive_file</i> Страницы</a></li>
-        <li><a href="#"><i class="material-icons">format_align_center</i> Статьи</a></li>
-        <li><a href="<?= Url::to(['category/index'])?>"><i class="material-icons">list</i> Категории</a></li>
-        <li><a href="<?= Url::to(['product/index'])?>"><i class="material-icons">local_grocery_store</i> Товары</a></li>
-        <li><a href="#"><i class="material-icons">settings_ethernet</i> UML / XML</a></li>
-        <li><a href="#"><i class="material-icons">textsms</i> Отзывы</a></li>
-        <li><a href="<?= Url::to(['user/index'])?>"><i class="material-icons">group</i> Пользователи</a></li>
+        <li><a href="<?= Url::to(['/core/static-page/index'])?>"><i class="material-icons">insert_drive_file</i> Страницы</a></li>
+        <!-- <li><a href="#"><i class="material-icons">format_align_center</i> Статьи</a></li> -->
+        <li><a href="<?= Url::to(['/core/category/index'])?>"><i class="material-icons">list</i> Категории</a></li>
+        <li><a href="<?= Url::to(['/core/product/index'])?>"><i class="material-icons">local_grocery_store</i> Товары</a></li>
+        <li><a href="<?= Url::to(['/core/product-rests/index'])?>"><i class="material-icons"></i> Products Rests</a></li>
+        <!-- <li><a href="#"><i class="material-icons">settings_ethernet</i> UML / XML</a></li> -->
+        <!-- <li><a href="#"><i class="material-icons">textsms</i> Отзывы</a></li> -->
+        <li><a href="<?= Url::to(['/core/order/index'])?>"><i class="material-icons"></i> Orders</a></li>
+        <li><a href="<?= Url::to(['/core/menu/index'])?>"><i class="material-icons"></i> Menu Builder</a></li>
+        <li><a href="<?= Url::to(['/core/delivery-type/index'])?>"><i class="material-icons"></i> Delivery Types</a></li>
+        <li><a href="<?= Url::to(['/core/payment-type/index'])?>"><i class="material-icons"></i> Payment Types</a></li>
+        <li><a href="<?= Url::to(['/core/user/index'])?>"><i class="material-icons">group</i> Пользователи</a></li>
     </ul>
 </nav>
 
