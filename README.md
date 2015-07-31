@@ -1,7 +1,5 @@
 # Yii 2 CMS
 
-A modern nested sets behavior for the Yii framework utilizing the Modified Preorder Tree Traversal algorithm.
-
 ## Install via Composer
 
 Run the following command to install the [Composer Asset Plugin](https://github.com/francoispluchino/composer-asset-plugin):
