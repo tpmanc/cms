@@ -10,4 +10,9 @@ return [
             'class' => 'yii\rbac\DbManager',
         ],
     ],
+    'modules' => [
+        'core' => [
+            'class' => 'tpmanc\cmscore\CoreModule',
+        ],
+    ],
 ];

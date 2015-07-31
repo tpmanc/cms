@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "84bfdf69fca2d768ce4d3cc43b4886b1",
+    "hash": "ebdcb16963d662a85cedbb0823f7aadb",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -407,6 +407,51 @@
                 "html"
             ],
             "time": "2013-11-30 08:25:19"
+        },
+        {
+            "name": "tpmanc/cms-core",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tpmanc/cms-core.git",
+                "reference": "3073afd6c4cc3f358c69a1d94543d6005177f747"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tpmanc/cms-core/zipball/3073afd6c4cc3f358c69a1d94543d6005177f747",
+                "reference": "3073afd6c4cc3f358c69a1d94543d6005177f747",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "yiisoft/yii2-imagine": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "tpmanc\\cmscore\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "tpmanc",
+                    "email": "tpxtrime@mail.ru",
+                    "homepage": "https://github.com/tpmanc",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Yii2 cms core",
+            "homepage": "https://github.com/tpmanc/cms-core",
+            "keywords": [
+                "cms",
+                "core",
+                "yii"
+            ],
+            "time": "2015-07-31 12:44:20"
         },
         {
             "name": "tpmanc/yii2-file-behavior",

@@ -6,6 +6,9 @@ return [
         'uploadUrl' => '@web/img',
         'imageAllowExtensions'=>['jpg','png','gif']
     ],
+    'core' => [
+        'class' => 'tpmanc\cmscore\CoreModule',
+    ],
     'sitemap' => [
         'class' => 'backend\modules\sitemap\SitemapModule',
         'items' => [
