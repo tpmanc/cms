@@ -11,7 +11,7 @@ $ composer global require "fxp/composer-asset-plugin:1.0.0"
 Now install aplication
 
 ```bash
-$ composer create-project --prefer-dist tpmanc/cms /path/to/install/
+$ composer create-project --prefer-dist tpmanc\cms /path/to/install/
 ```
 
 
