@@ -1,7 +1,47 @@
+# Nested Sets Behavior for Yii 2
+
+A modern nested sets behavior for the Yii framework utilizing the Modified Preorder Tree Traversal algorithm.
+
+## Install via Composer
+
+Run the following command to install the [Composer Asset Plugin](https://github.com/francoispluchino/composer-asset-plugin):
+
+```bash
+$ composer global require "fxp/composer-asset-plugin:1.0.0"
+```
+
+Now install aplication
+
+```bash
+$ composer create-project --prefer-dist tpmanc/cms /path/to/install/
+```
+
+
+## Migrations
+
+Run the following command
+
+```bash
+$ php yii migrate/create
+```
+
+
+## Configuring
+
+Configure DB connection in `common/config/main-local.php`
+
+```php
+        'db' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'mysql:host=127.0.0.1;dbname=dbname',
+            'username' => 'user',
+            'password' => 'password',
+            'charset' => 'utf8',
+        ],
+```
+
+
 # backend
-
-
-
 
 
 ## Пользователи
