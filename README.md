@@ -1,4 +1,4 @@
-# Nested Sets Behavior for Yii 2
+# Yii 2 CMS
 
 A modern nested sets behavior for the Yii framework utilizing the Modified Preorder Tree Traversal algorithm.
 
