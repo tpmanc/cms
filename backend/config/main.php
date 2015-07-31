@@ -12,6 +12,7 @@ return [
     'id' => 'app-backend',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
+    'defaultRoute' => '/core/dashboard/index',
     'bootstrap' => ['log'],
     'components' => [
         'user' => [
@@ -32,23 +33,23 @@ return [
         ],
         'i18n' => [
             'translations' => [
-                'app*' => [
+                'core*' => [
                     'class' => 'yii\i18n\PhpMessageSource',
-                    'basePath' => '@app/messages',
+                    'basePath' => '../../vendor/tpmanc/cms-core/messages',
                     'sourceLanguage' => 'en-US',
                     'fileMap' => [
-                        'app' => 'app.php',
-                        'app/staticPage' => 'appStaticPage.php',
-                        'app/category' => 'appCategory.php',
-                        'app/deliveryType' => 'appDeliveryType.php',
-                        'app/paymentType' => 'appPaymentType.php',
-                        'app/product' => 'appProduct.php',
-                        'app/menu' => 'appMenu.php',
-                        'app/user' => 'appUser.php',
-                        'app/productRests' => 'appProductRests.php',
-                        'app/order' => 'appOrder.php',
-                        'app/orderProducts' => 'appOrderProducts.php',
-                        'app/error' => 'error.php',
+                        'core' => 'core.php',
+                        'core/staticPage' => 'coreStaticPage.php',
+                        'core/category' => 'coreCategory.php',
+                        'core/deliveryType' => 'coreDeliveryType.php',
+                        'core/paymentType' => 'corePaymentType.php',
+                        'core/product' => 'coreProduct.php',
+                        'core/menu' => 'coreMenu.php',
+                        'core/user' => 'coreUser.php',
+                        'core/productRests' => 'coreProductRests.php',
+                        'core/order' => 'coreOrder.php',
+                        'core/orderProducts' => 'coreOrderProducts.php',
+                        'core/error' => 'error.php',
                     ],
                 ],
             ],
