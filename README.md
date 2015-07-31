@@ -19,10 +19,12 @@ $ composer create-project --prefer-dist tpmanc/cms /path/to/install/
 
 ## Migrations
 
-Run the following command
+Run the following commands
 
 ```bash
 $ php yii migrate/create
+
+$ php yii migrate --migrationPath=@yii/rbac/migrations
 ```
 
 
@@ -38,6 +40,15 @@ Configure DB connection in `common/config/main-local.php`
             'password' => 'password',
             'charset' => 'utf8',
         ],
+```
+
+
+## RBAC Roles
+
+Run following command to create RBAC roles
+
+```bash
+$ php yii rbac/init
 ```
 
 

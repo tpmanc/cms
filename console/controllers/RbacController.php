@@ -23,5 +23,7 @@ class RbacController extends Controller
         $auth->addChild($manager, $user);
         $auth->addChild($moderator, $manager);
         $auth->addChild($admin, $moderator);
+
+        echo 'ok';
     }
 }
