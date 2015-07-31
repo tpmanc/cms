@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ebdcb16963d662a85cedbb0823f7aadb",
+    "hash": "682b0cd0759d2cbb647b966726a5e1dc",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -410,16 +410,16 @@
         },
         {
             "name": "tpmanc/cms-core",
-            "version": "v1.0",
+            "version": "v1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tpmanc/cms-core.git",
-                "reference": "3073afd6c4cc3f358c69a1d94543d6005177f747"
+                "reference": "1ec67862e2f5dc08ffff68b81cf1cce140faf659"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tpmanc/cms-core/zipball/3073afd6c4cc3f358c69a1d94543d6005177f747",
-                "reference": "3073afd6c4cc3f358c69a1d94543d6005177f747",
+                "url": "https://api.github.com/repos/tpmanc/cms-core/zipball/1ec67862e2f5dc08ffff68b81cf1cce140faf659",
+                "reference": "1ec67862e2f5dc08ffff68b81cf1cce140faf659",
                 "shasum": ""
             },
             "require": {
@@ -451,7 +451,7 @@
                 "core",
                 "yii"
             ],
-            "time": "2015-07-31 12:44:20"
+            "time": "2015-07-31 14:38:49"
         },
         {
             "name": "tpmanc/yii2-file-behavior",
