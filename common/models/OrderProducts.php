@@ -3,7 +3,7 @@
 namespace common\models;
 
 use Yii;
-use common\models\Order;
+use common\models\Product;
 
 /**
  * This is the model class for table "orderProducts".
@@ -13,7 +13,7 @@ use common\models\Order;
  * @property integer $productId
  * @property integer $amount
  *
- * @property Order $order
+ * @property Product $product
  */
 class OrderProducts extends \yii\db\ActiveRecord
 {
@@ -52,8 +52,8 @@ class OrderProducts extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getOrder()
+    public function getInfo()
     {
-        return $this->hasOne(Order::className(), ['id' => 'orderId']);
+        return $this->hasOne(Product::className(), ['id' => 'productId']);
     }
 }

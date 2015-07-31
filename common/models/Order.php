@@ -20,6 +20,8 @@ use common\models\OrderProducts;
  * @property integer $date
  * @property integer $discount
  * @property integer $totalPrice
+ * @property integer $deliveryPrice
+ * @property integer $status
  *
  * @property OrderProducts[] $orderProducts
  */
@@ -28,6 +30,10 @@ use common\models\OrderProducts;
 // TODO: сумма заказа
 class Order extends \yii\db\ActiveRecord
 {
+    const STATUS_NEW = 0;
+    const STATUS_ACCEPTED = 1;
+    const STATUS_CANCELED = 2;
+
     /**
      * @inheritdoc
      */
@@ -43,11 +49,11 @@ class Order extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'phone', 'deliveryType', 'paymentType'], 'required'],
-            [['orderProductsId', 'deliveryType', 'paymentType', 'date', 'discount', 'totalPrice'], 'integer'],
+            [['status', 'deliveryType', 'paymentType', 'date', 'discount', 'totalPrice', 'deliveryPrice'], 'integer'],
             [['name', 'adress', 'phone', 'email', 'extraInformation'], 'string', 'max' => 255],
             ['email', 'email'],
 
-            [['discount', 'orderProductsId', 'totalPrice'], 'default', 'value' => 0],
+            [['discount', 'status', 'totalPrice', 'deliveryPrice'], 'default', 'value' => 0],
             ['date', 'default', 'value' => time()],
         ];
     }
@@ -59,7 +65,6 @@ class Order extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'orderProductsId' => 'Order Products ID',
             'name' => Yii::t('app/order', 'Name'),
             'adress' => Yii::t('app/order', 'Adress'),
             'phone' => Yii::t('app/order', 'Phone'),
@@ -70,6 +75,8 @@ class Order extends \yii\db\ActiveRecord
             'date' => Yii::t('app/order', 'Date'),
             'discount' => Yii::t('app/order', 'Discount'),
             'totalPrice' => Yii::t('app/order', 'Total Price'),
+            'deliveryPrice' => Yii::t('app/order', 'Delivery Price'),
+            'status' => Yii::t('app/order', 'Status'),
         ];
     }
 

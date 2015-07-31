@@ -33,14 +33,18 @@ class OrderController extends Controller
      * Lists all Order models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($status = 'new')
     {
-        $searchModel = new OrderSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if ($status === 'accepted') {
+            $orders = Order::find()->where(['status' => Order::STATUS_ACCEPTED])->all();
+        } elseif ($status === 'canceled') {
+            $orders = Order::find()->where(['status' => Order::STATUS_CANCELED])->all();
+        } else {
+            $orders = Order::find()->where(['status' => Order::STATUS_NEW])->all();
+        }
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'orders' => $orders,
         ]);
     }
 

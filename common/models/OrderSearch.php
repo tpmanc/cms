@@ -18,7 +18,7 @@ class OrderSearch extends Order
     public function rules()
     {
         return [
-            [['id', 'orderProductsId', 'deliveryType', 'paymentType', 'date', 'discount', 'totalPrice'], 'integer'],
+            [['id', 'status', 'deliveryType', 'paymentType', 'date', 'discount', 'totalPrice', 'deliveryPrice'], 'integer'],
             [['name', 'adress', 'phone', 'email', 'extraInformation'], 'safe'],
         ];
     }
@@ -57,12 +57,13 @@ class OrderSearch extends Order
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'orderProductsId' => $this->orderProductsId,
+            'status' => $this->orderProductsId,
             'deliveryType' => $this->deliveryType,
             'paymentType' => $this->paymentType,
             'date' => $this->date,
             'discount' => $this->discount,
             'totalPrice' => $this->totalPrice,
+            'deliveryPrice' => $this->totalPrice,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
