@@ -10,7 +10,9 @@ class m150730_100123_fileLink extends Migration
         $this->createTable('productImage', [
             'id' => Schema::TYPE_PK,
             'itemId' => Schema::TYPE_INTEGER . ' NOT NULL',
-            'fileId' => Schema::TYPE_INTEGER . ' NOT NULL',
+            'image' => Schema::TYPE_STRING . '(255) NOT NULL',
+            'path' => Schema::TYPE_STRING . '(255) NOT NULL',
+            'size' => Schema::TYPE_STRING . '(255) NOT NULL',
         ]);
     }
 

@@ -30,7 +30,11 @@ AppAsset::register($this);
             <i class="material-icons">account_circle</i> <?= Yii::$app->user->identity->username?> (logout)
         </div>
         <ul>
-            <li><a href="<?= Url::to(['/core/static-page/index'])?>"><i class="material-icons">insert_drive_file</i> Static Pages</a></li>
+            <li>
+                <a href="<?= Url::to(['/core/static-page/index'])?>">
+                    <i class="material-icons">insert_drive_file</i> <?= Yii::t('backend/leftMenu', 'Static Pages') ?>
+                </a>
+            </li>
             <!-- <li><a href="#"><i class="material-icons">format_align_center</i> Статьи</a></li> -->
             <li><a href="<?= Url::to(['/core/category/index'])?>"><i class="material-icons">list</i> Categories</a></li>
             <li><a href="<?= Url::to(['/core/product/index'])?>"><i class="material-icons">local_grocery_store</i> Products</a></li>

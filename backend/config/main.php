@@ -52,6 +52,14 @@ return [
                         'core/error' => 'error.php',
                     ],
                 ],
+                'backend*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/messages',
+                    'sourceLanguage' => 'en-US',
+                    'fileMap' => [
+                        'backend/leftMenu' => 'backendLeftMenu.php',
+                    ],
+                ],
             ],
         ],
     ],

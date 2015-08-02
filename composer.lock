@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "682b0cd0759d2cbb647b966726a5e1dc",
+    "hash": "1a49426849c6d0049aead60e4ce7cbcf",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -455,21 +455,21 @@
         },
         {
             "name": "tpmanc/yii2-file-behavior",
-            "version": "v1.3",
+            "version": "v1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tpmanc/yii2-file-behavior.git",
-                "reference": "6f5620add2cd621d02a88e7c21fa1b667c37e8b3"
+                "reference": "8666129bf6e612e5ce7e78f5884093b4d93880fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tpmanc/yii2-file-behavior/zipball/6f5620add2cd621d02a88e7c21fa1b667c37e8b3",
-                "reference": "6f5620add2cd621d02a88e7c21fa1b667c37e8b3",
+                "url": "https://api.github.com/repos/tpmanc/yii2-file-behavior/zipball/8666129bf6e612e5ce7e78f5884093b4d93880fb",
+                "reference": "8666129bf6e612e5ce7e78f5884093b4d93880fb",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0",
-                "yiisoft/yii2-imagine": "*"
+                "tpmanc/yii2-imagick": "*"
             },
             "type": "library",
             "autoload": {
@@ -498,7 +498,51 @@
                 "upload",
                 "yii"
             ],
-            "time": "2015-07-30 12:54:12"
+            "time": "2015-07-31 20:24:33"
+        },
+        {
+            "name": "tpmanc/yii2-imagick",
+            "version": "v1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tpmanc/yii2-imagick.git",
+                "reference": "168bfc70dd19706d35abe036ee9202f6ec82f106"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tpmanc/yii2-imagick/zipball/168bfc70dd19706d35abe036ee9202f6ec82f106",
+                "reference": "168bfc70dd19706d35abe036ee9202f6ec82f106",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "tpmanc\\imagick\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "tpmanc",
+                    "email": "tpxtrime@mail.ru",
+                    "homepage": "https://github.com/tpmanc",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Yii 2 class for working with Imagick",
+            "homepage": "https://github.com/tpmanc/yii2-imagick",
+            "keywords": [
+                "imagick",
+                "yii",
+                "yii2"
+            ],
+            "time": "2015-07-31 20:07:36"
         },
         {
             "name": "yiidoc/yii2-redactor",
