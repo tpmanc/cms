@@ -2,30 +2,29 @@
 
 namespace frontend\controllers;
 
-use tpmanc\cmscore\models\StaticPage;
-use yii\web\NotFoundHttpException;
+use tpmanc\cmscore\models\Category;
 
-class StaticPageController extends \yii\web\Controller
+class CategoryController extends \yii\web\Controller
 {
     public function actionView($chpu)
     {
-        $page = $this->findModel($chpu);
+        $category = $this->findModel($chpu);
 
         return $this->render('view', [
-            'page' => $page,
+            'category' => $category,
         ]);
     }
 
     /**
-     * Finds the StaticPage model based on its primary key value.
+     * Finds the Category model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $chpu
-     * @return StaticPage the loaded model
+     * @return Category the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($chpu)
     {
-        if (($model = StaticPage::find()->where(['chpu' => $chpu])->one()) !== null) {
+        if (($model = Category::find()->where(['chpu' => $chpu, 'isDisabled' => Category::IS_ENABLED])->one()) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
