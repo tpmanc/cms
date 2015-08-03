@@ -12,6 +12,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use tpmanc\cmscore\models\Menu;
 use tpmanc\cmscore\models\Category;
 
 /**
@@ -68,7 +69,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        $categories = Category::find()->where(['isDisabled' => Category::IS_ENABLED])->all();
+        $categories = Menu::find()->where(['depth' => 0])->all();
 
         return $this->render('index', [
             'categories' => $categories,

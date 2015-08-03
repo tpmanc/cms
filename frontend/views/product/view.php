@@ -1,5 +1,5 @@
 <?php
-use yii\helpers\Html;var_dump(Yii::getAlias('@web'));
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $product tpmanc\cmscore\models\Product */

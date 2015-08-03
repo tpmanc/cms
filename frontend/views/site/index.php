@@ -16,8 +16,8 @@ $this->title = 'Yii 2 CMS';
         <div class="row">
             <?php foreach ($categories as $category) { ?>
                 <div class="col-lg-2">
-                    <h2><?= $category->title ?></h2>
-                    <p><a class="btn btn-default" href="<?= Url::to(['/category/view', 'chpu' => $category->chpu]) ?>">Перейти</a></p>
+                    <h2><?= $category->name ?></h2>
+                    <p><a class="btn btn-default" href="<?= Url::to(['/main-category/view', 'chpu' => $category->link]) ?>">Перейти</a></p>
                 </div>
             <?php } ?>
         </div>
