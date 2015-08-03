@@ -3,21 +3,24 @@
 use yii\db\Schema;
 use yii\db\Migration;
 
-class m150730_100123_fileLink extends Migration
+class m150730_100123_productImage extends Migration
 {
     public function up()
     {
         $this->createTable('productImage', [
             'id' => Schema::TYPE_PK,
             'itemId' => Schema::TYPE_INTEGER . ' NOT NULL',
-            'image' => Schema::TYPE_STRING . '(255) NOT NULL',
-            'path' => Schema::TYPE_STRING . '(255) NOT NULL',
-            'size' => Schema::TYPE_STRING . '(255) NOT NULL',
+            'name' => Schema::TYPE_STRING . '(255) NOT NULL',
         ]);
+
+        $this->addForeignKey(
+            'FK_productImage_product', 'productImage', 'itemId', 'product', 'id', 'CASCADE', 'CASCADE'
+        );
     }
 
     public function down()
     {
+        $this->dropForeignKey('FK_productImage_product', 'productImage');
         $this->dropTable('productImage');
     }
     

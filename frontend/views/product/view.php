@@ -1,5 +1,5 @@
 <?php
-use yii\helpers\Html;
+use yii\helpers\Html;var_dump(Yii::getAlias('@web'));
 
 /* @var $this yii\web\View */
 /* @var $product tpmanc\cmscore\models\Product */
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="row">
     <?php foreach ($images as $image) { ?>
-        <img src="<?= Yii::getAlias($image->path . $image->image) ?>" alt="">
+        <img src="<?= Yii::getAlias('@webupload' . $image['path'] . $image['name']) ?>" alt="">
     <?php } ?>
     <?= $product->description ?>
     <br>
