@@ -53,7 +53,7 @@ $(function(){
             });
             $.ajax({
                 type: "POST",
-                url: "/backend/web/index.php?r=/core/ajax/save-dashboard",
+                url: "/backend/web/index.php?r=core/ajax/save-dashboard",
                 data: {"info": JSON.stringify(arr), "_csrf": csrfToken},
                 dataType: 'json',
                 beforeSend: function(){
@@ -195,7 +195,7 @@ $(function(){
             });
             $.ajax({
                 type: "POST",
-                url: "/backend/web/index.php?r=/core/menu/root-sorting",
+                url: "/backend/web/index.php?r=core/menu/root-sorting",
                 data: {
                     "sorting": sorting,
                     "_csrf": csrfToken
@@ -235,7 +235,7 @@ $(function(){
         elementModal.find('.has-error').removeClass('has-error');
         $.ajax({
             type: 'POST',
-            url: '/backend/web/index.php?r=/core/menu/edit-element',
+            url: '/backend/web/index.php?r=core/menu/edit-element',
             data: {"itemId": itemId, "_csrf": csrfToken},
             dataType: 'json',
             beforeSend: function () {
@@ -290,7 +290,7 @@ $(function(){
         elementModal.find('.has-error').removeClass('has-error');
         $.ajax({
             type: 'POST',
-            url: '/backend/web/index.php?r=/core/menu/new-element',
+            url: '/backend/web/index.php?r=core/menu/new-element',
             data: {"_csrf": csrfToken},
             dataType: 'json',
             beforeSend: function () {
@@ -337,7 +337,7 @@ $(function(){
         if (!error) {
             $.ajax({
                 type: "POST",
-                url: "/backend/web/index.php?r=/core/menu/save-element",
+                url: "/backend/web/index.php?r=core/menu/save-element",
                 data: {
                     "name": name,
                     "link": elementLink.val().trim(),
@@ -370,7 +370,7 @@ $(function(){
     $('#addProduct').on('click', function(){
         $.ajax({
             type: "POST",
-            url: "/backend/web/index.php?r=/core/order/get-product-line",
+            url: "/backend/web/index.php?r=core/order/get-product-line",
             data: {
                 "_csrf": csrfToken
             },
