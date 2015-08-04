@@ -9,11 +9,23 @@ $this->title = $category->title;
 $products = $category->products;
 
 foreach ($parents as $parent) {
-    $this->params['breadcrumbs'][] = ['label' => $parent->info['title'], 'url' => ['/main-category/view', 'chpu' => $parent->info['chpu']]];
+    if ($parent->depth !== 0) {
+        $this->params['breadcrumbs'][] = ['label' => $parent->info['title'], 'url' => ['/main-category/view', 'chpu' => $parent->info['chpu']]];
+    }
 }
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <h1><?= $category->title ?></h1>
+
+<div class="row">
+    <?php foreach ($tags as $tag) { ?>
+        <div class="col-lg-2">
+            <?= Html::a($tag['title'], ['/category/view', 'chpu' => $tag['chpu']]) ?>
+        </div>
+    <?php } ?>
+</div>
+
+<hr>
 
 <div class="row">
     <?php foreach ($products as $product) { ?>

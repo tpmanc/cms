@@ -69,7 +69,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        $categories = Menu::find()->where(['depth' => 0])->all();
+        $categories = Menu::getMenuRoot()->children(1)->all();
 
         return $this->render('index', [
             'categories' => $categories,

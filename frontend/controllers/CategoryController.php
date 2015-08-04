@@ -12,10 +12,27 @@ class CategoryController extends \yii\web\Controller
         $category = $this->findModel($chpu);
         $menuItem = Menu::find()->where(['categoryId' => $category->id])->one();
         $parents = $menuItem->parents()->all();
+        $children = $menuItem->children(1)->all();
+        $tags = [];
+        foreach ($children as $child) {
+            if ($child->categoryId === 0) {
+                $tags[] = [
+                    'title' => $child->name,
+                    'chpu' => $child->link,
+                ];
+            } else {
+                $category = Category::find()->where(['id' => $child->categoryId])->one();
+                $tags[] = [
+                    'title' => $category->title,
+                    'chpu' => $category->chpu,
+                ];
+            }
+        }
 
         return $this->render('view', [
             'category' => $category,
             'parents' => $parents,
+            'tags' => $tags,
         ]);
     }
 
