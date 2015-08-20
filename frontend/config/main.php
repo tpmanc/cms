@@ -17,7 +17,11 @@ return [
             'showScriptName' => false,
             'enableStrictParsing' => false,
             'rules' => [
-                'page/<chpu:\w+>' => 'static-page/view',
+                'page/<chpu:[0-9a-zA-Z\-]+>' => 'static-page/view',
+                'section/<chpu:[0-9a-zA-Z\-]+>' => 'main-category/view',
+                'group/<chpu:[0-9a-zA-Z\-]+>' => 'category/view',
+                'detail/<chpu:[0-9a-zA-Z\-]+>' => 'tag/view',
+                'position/<chpu:[0-9a-zA-Z\-]+>' => 'product/view',
             ],
         ],
         'user' => [
