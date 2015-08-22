@@ -9,8 +9,8 @@ class CategoryController extends \yii\web\Controller
 {
     public function actionView($chpu)
     {
-        $category = $this->findModel($chpu);
-        $menuItem = Menu::find()->where(['categoryId' => $category->id])->one();
+        $currentCategory = $this->findModel($chpu);
+        $menuItem = Menu::find()->where(['categoryId' => $currentCategory->id])->one();
         $parents = $menuItem->parents()->all();
         $children = $menuItem->children(1)->all();
         $tags = [];
@@ -30,7 +30,7 @@ class CategoryController extends \yii\web\Controller
         }
 
         return $this->render('view', [
-            'category' => $category,
+            'category' => $currentCategory,
             'parents' => $parents,
             'tags' => $tags,
         ]);
