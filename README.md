@@ -1,4 +1,4 @@
-# Yii 2 CMS
+# Abrikos CMS
 
 ## Install via Composer
 
