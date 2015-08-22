@@ -29,10 +29,13 @@ class CategoryController extends \yii\web\Controller
             }
         }
 
+        $products = $currentCategory->products;
+
         return $this->render('view', [
             'category' => $currentCategory,
             'parents' => $parents,
             'tags' => $tags,
+            'products' => $products,
         ]);
     }
 

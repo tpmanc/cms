@@ -6,7 +6,6 @@ use yii\helpers\Html;
 /* @var $parents tpmanc\cmscore\models\Category */
 
 $this->title = $category->title;
-$products = $category->products;
 
 foreach ($parents as $parent) {
     if ($parent->depth !== 0) {
@@ -18,6 +17,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <h1><?= $category->title ?></h1>
 
 <div class="row">
+    <h2>Sub-categories</h2>
+
     <?php foreach ($tags as $tag) { ?>
         <div class="col-lg-2">
             <?= Html::a($tag['title'], ['/category/view', 'chpu' => $tag['chpu']]) ?>
@@ -28,13 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
 <hr>
 
 <div class="row">
+    <h2>Products</h2>
+
     <?php foreach ($products as $product) { ?>
-        <div class="col-lg-2">
-            <?= Html::a($product->title, ['/product/view', 'chpu' => $product->chpu]) ?>
-            <br>
-            <?= $product->shortDescription?>
-            <br>
-            <?= Yii::$app->formatter->asInteger($product->price) ?> руб.
-        </div>
+        <?= $this->render('/product/listing-view', [
+            'product' => $product,
+        ]) ?>
     <?php } ?>
 </div>
