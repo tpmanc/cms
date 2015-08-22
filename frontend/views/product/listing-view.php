@@ -7,12 +7,7 @@ use yii\helpers\Html;
 ?>
 
 <div class="col-lg-2 product-listing-view">
-    <?php
-        $images = $product->getImages();
-        foreach ($images as $image) {
-            echo Html::img($image);
-        }
-    ?>
+    <?= Html::img($product->getImages(1)) ?>
 
     <?= Html::a($product->title, ['/product/view', 'chpu' => $product->chpu]) ?>
     <br>
