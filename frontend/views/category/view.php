@@ -16,15 +16,17 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <h1><?= $category->title ?></h1>
 
-<div class="row">
-    <h2>Sub-categories</h2>
+<?php if (!empty($tags)) { ?>
+    <div class="row">
+        <h2>Sub-categories</h2>
 
-    <?php foreach ($tags as $tag) { ?>
-        <div class="col-lg-2">
-            <?= Html::a($tag['title'], ['/category/view', 'chpu' => $tag['chpu']]) ?>
-        </div>
-    <?php } ?>
-</div>
+        <?php foreach ($tags as $tag) { ?>
+            <div class="col-lg-2">
+                <?= Html::a($tag['title'], ['/category/view', 'chpu' => $tag['chpu']]) ?>
+            </div>
+        <?php } ?>
+    </div>
+<?php } ?>
 
 <hr>
 
