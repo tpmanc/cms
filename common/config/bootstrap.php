@@ -7,3 +7,4 @@ Yii::setAlias('@vendor', realpath(dirname(__FILE__) . '/vendor'));
 Yii::setAlias('@frontend', realpath(dirname(__FILE__) . '/../../frontend'));
 Yii::setAlias('@upload', realpath(dirname(__FILE__) . '/../../frontend/web/upload'));
 Yii::setAlias('@webupload', '/frontend/web/upload');
+Yii::setAlias('@images', '/frontend/web/images');
