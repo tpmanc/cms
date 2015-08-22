@@ -9,7 +9,7 @@ class ProductController extends \yii\web\Controller
     public function actionView($chpu)
     {
         $product = $this->findModel($chpu);
-        $images = $product->getImages('small');
+        $images = $product->getImages(false, 'small');
         $category = $product->mainCategoryModel->info;
 
         return $this->render('view', [

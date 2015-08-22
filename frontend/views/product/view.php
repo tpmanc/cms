@@ -14,9 +14,11 @@ $this->params['breadcrumbs'][] = $this->title;
 <h1><?= $product->title ?></h1>
 
 <div class="row">
-    <?php foreach ($images as $image) { ?>
-        <img src="<?= Yii::getAlias('@webupload' . $image['path'] . $image['name']) ?>" alt="">
-    <?php } ?>
+    <?php
+        foreach ($images as $image) {
+            echo Html::img($image);
+        }
+    ?>
     <?= $product->description ?>
     <br>
     <?= Yii::$app->formatter->asInteger($product->price) ?> руб.
