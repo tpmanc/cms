@@ -1,5 +1,6 @@
 $(function(){
     var csrfToken = $('meta[name="csrf-token"]').attr("content");
+    var ajaxUrl = '/index.php?r=';
     var body = $('body');
     var tileSettings = $('#tileSettings');
     var tileSort = $("#tile-sort");
@@ -8,6 +9,36 @@ $(function(){
                     'yellow', 'darkyellow',  
                     'orange', 'brown', 'darkorange', 
                     'red', 'pink', 'purple', 'ligthpurple'];
+
+    // category image deleting
+    $('#categoryImages .delete-icon').on('click', function(){
+        if (confirm("Удалить изображение?")) {
+            var imageHolder = $(this).closest('.category-image-holder');
+            var imageId = imageHolder.find('.category-image').data('id');
+            var categoryId = imageHolder.find('.category-image').data('category-id');
+            $.ajax({
+                type: "POST",
+                url: ajaxUrl + "core/category/delete-image",
+                data: {
+                    "imageId": imageId,
+                    "categoryId": categoryId,
+                    "_csrf": csrfToken
+                },
+                dataType: 'json',
+                beforeSend: function () {
+                    NProgress.start();
+                },
+                success: function (data) {
+                    NProgress.done();
+                    imageHolder.remove();
+                },
+                complete: function () {
+                    elementModal.removeClass('has-error');
+                    elementModal.arcticmodal('close');
+                }
+            });
+        }
+    });
 
     // block tile
     $('#tileChangeBlock').on('click', function(){
@@ -53,7 +84,7 @@ $(function(){
             });
             $.ajax({
                 type: "POST",
-                url: "/backend/web/index.php?r=core/ajax/save-dashboard",
+                url: ajaxUrl + "core/ajax/save-dashboard",
                 data: {"info": JSON.stringify(arr), "_csrf": csrfToken},
                 dataType: 'json',
                 beforeSend: function(){
@@ -195,7 +226,7 @@ $(function(){
             });
             $.ajax({
                 type: "POST",
-                url: "/backend/web/index.php?r=core/menu/root-sorting",
+                url: ajaxUrl + "core/menu/root-sorting",
                 data: {
                     "sorting": sorting,
                     "_csrf": csrfToken
@@ -235,7 +266,7 @@ $(function(){
         elementModal.find('.has-error').removeClass('has-error');
         $.ajax({
             type: 'POST',
-            url: '/backend/web/index.php?r=core/menu/edit-element',
+            url: ajaxUrl + 'core/menu/edit-element',
             data: {"itemId": itemId, "_csrf": csrfToken},
             dataType: 'json',
             beforeSend: function () {
@@ -290,7 +321,7 @@ $(function(){
         elementModal.find('.has-error').removeClass('has-error');
         $.ajax({
             type: 'POST',
-            url: '/backend/web/index.php?r=core/menu/new-element',
+            url: ajaxUrl + 'core/menu/new-element',
             data: {"_csrf": csrfToken},
             dataType: 'json',
             beforeSend: function () {
@@ -337,7 +368,7 @@ $(function(){
         if (!error) {
             $.ajax({
                 type: "POST",
-                url: "/backend/web/index.php?r=core/menu/save-element",
+                url: ajaxUrl + "core/menu/save-element",
                 data: {
                     "name": name,
                     "link": elementLink.val().trim(),
@@ -370,7 +401,7 @@ $(function(){
     $('#addProduct').on('click', function(){
         $.ajax({
             type: "POST",
-            url: "/backend/web/index.php?r=core/order/get-product-line",
+            url: ajaxUrl + "core/order/get-product-line",
             data: {
                 "_csrf": csrfToken
             },
