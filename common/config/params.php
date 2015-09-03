@@ -10,6 +10,6 @@ return [
     'productSmall' => ['width' => 90, 'height' => 78],
     
     // category image sizes
-    'categoryMedium' => [],
-    'categorySmall' => [],
+    'categoryMedium' => ['width' => 170, 'height' => 170],
+    'categorySmall' => ['width' => 70, 'height' => 70],
 ];
