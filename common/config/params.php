@@ -8,4 +8,8 @@ return [
     'productBig' => ['width' => 428, 'height' => 380],
     'productMedium' => ['width' => 218, 'height' => 200],
     'productSmall' => ['width' => 90, 'height' => 78],
+    
+    // category image sizes
+    'categoryMedium' => [],
+    'categorySmall' => [],
 ];
