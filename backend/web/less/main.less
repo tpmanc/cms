@@ -60,12 +60,18 @@ html {
 		height: 100%;
 		font-family: @ff;
 		
+		@import "leftMenu.less";
+		@import "menuBuilder.less";
+		
 		.wrapper {
 			position: relative;	
 			min-height: 100%;
 			box-sizing: border-box;
 			margin-left: @menuWidth;
 			padding: 1rem 1rem 4rem 1rem;
+			
+			@import "order.less";
+			@import "category.less";
 			
 			h1 {
 				width: 100%;
@@ -83,8 +89,6 @@ html {
 					border-radius: 5rem;
 				}
 			}
-
-			@import "category.less";
 			
 			.flexbox {
 				position: relative;
@@ -332,10 +336,6 @@ html {
 		font-size: 14px;
 	}
 }
-
-@import "leftMenu.less";
-@import "menuBuilder.less";
-@import "order.less";
 
 @font-face {
 	font-family: 'Material Icons';
