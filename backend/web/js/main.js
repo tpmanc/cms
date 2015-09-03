@@ -40,6 +40,36 @@ $(function(){
         }
     });
 
+    // product image deleting
+    $('#productImages .delete-icon').on('click', function(){
+        if (confirm("Удалить изображение?")) {
+            var imageHolder = $(this).closest('.product-image-holder');
+            var imageId = imageHolder.find('.product-image').data('id');
+            var productId = imageHolder.find('.product-image').data('product-id');
+            $.ajax({
+                type: "POST",
+                url: ajaxUrl + "core/product/delete-image",
+                data: {
+                    "imageId": imageId,
+                    "productId": productId,
+                    "_csrf": csrfToken
+                },
+                dataType: 'json',
+                beforeSend: function () {
+                    NProgress.start();
+                },
+                success: function (data) {
+                    NProgress.done();
+                    imageHolder.remove();
+                },
+                complete: function () {
+                    elementModal.removeClass('has-error');
+                    elementModal.arcticmodal('close');
+                }
+            });
+        }
+    });
+
     // block tile
     $('#tileChangeBlock').on('click', function(){
         if (tileSort.hasClass('editable')) {
