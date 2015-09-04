@@ -1,4 +1,8 @@
 <?php
+$frontendMain = require(__DIR__ . '/../../frontend/config/main.php');
+$frontendUrlManager = $frontendMain['components']['urlManager'];
+$frontendUrlManager['class'] = 'yii\web\urlManager';
+
 return [
     'language' => 'ru-RU',
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
@@ -39,6 +43,7 @@ return [
                 ],
             ],
         ],
+        'frontendUrlManager' => $frontendUrlManager,
     ],
     'modules' => [
         'core' => [
