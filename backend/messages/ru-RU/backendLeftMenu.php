@@ -9,4 +9,5 @@ return [
     'Delivery Types' => 'Способы доставки',
     'Payment Types' => 'Способы оплаты',
     'Users' => 'Пользователи',
+    'Suppliers' => 'Поставщики',
 ];

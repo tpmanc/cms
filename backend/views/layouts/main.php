@@ -46,6 +46,7 @@ AppAsset::register($this);
             <li><a href="<?= Url::to(['/core/menu/index'])?>"><i class="material-icons">apps</i> <?= Yii::t('backend/leftMenu', 'Menu Builder') ?></a></li>
             <li><a href="<?= Url::to(['/core/delivery-type/index'])?>"><i class="material-icons">local_shipping</i> <?= Yii::t('backend/leftMenu', 'Delivery Types') ?></a></li>
             <li><a href="<?= Url::to(['/core/payment-type/index'])?>"><i class="material-icons">account_balance_wallet</i> <?= Yii::t('backend/leftMenu', 'Payment Types') ?></a></li>
+            <li><a href="<?= Url::to(['/core/supplier/index'])?>"><i class="material-icons">inbox</i> <?= Yii::t('backend/leftMenu', 'Suppliers') ?></a></li>
             <li><a href="<?= Url::to(['/core/user/index'])?>"><i class="material-icons">group</i> <?= Yii::t('backend/leftMenu', 'Users') ?></a></li>
         </ul>
     </nav>
