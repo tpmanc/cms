@@ -13,7 +13,7 @@ use tpmanc\cmscore\models\Menu;
 
 /**
  * Transfer Olesya CMS to Abrikos CMS
- * Tables: cat, catalog, pages, catalog_2_cat, tags, tags_links
+ * Tables: cat, catalog, pages, catalog_2_cat, tags, tags_links, menuleft
  */
 class TransferController extends Controller
 {
@@ -267,7 +267,7 @@ class TransferController extends Controller
      */
     private function connect()
     {
-        $this->db = new \mysqli('localhost', 'abrikos', 'UVnWOnwcWIOn');
+        $this->db = new \mysqli('localhost', 'abrikos', 'UVnWOnwcWIOn', 'abrikos');
         if (mysqli_connect_errno()) {
             throw new ServerErrorHttpException(mysqli_connect_error());
         }

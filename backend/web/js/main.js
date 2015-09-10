@@ -1,6 +1,5 @@
 $(function(){
     var csrfToken = $('meta[name="csrf-token"]').attr("content");
-    var ajaxUrl = '/index.php?r=';
     var body = $('body');
     var tileSettings = $('#tileSettings');
     var tileSort = $("#tile-sort");
@@ -9,66 +8,6 @@ $(function(){
                     'yellow', 'darkyellow',  
                     'orange', 'brown', 'darkorange', 
                     'red', 'pink', 'purple', 'ligthpurple'];
-
-    // category image deleting
-    $('#categoryImages .delete-icon').on('click', function(){
-        if (confirm("Удалить изображение?")) {
-            var imageHolder = $(this).closest('.category-image-holder');
-            var imageId = imageHolder.find('.category-image').data('id');
-            var categoryId = imageHolder.find('.category-image').data('category-id');
-            $.ajax({
-                type: "POST",
-                url: ajaxUrl + "core/category/delete-image",
-                data: {
-                    "imageId": imageId,
-                    "categoryId": categoryId,
-                    "_csrf": csrfToken
-                },
-                dataType: 'json',
-                beforeSend: function () {
-                    NProgress.start();
-                },
-                success: function (data) {
-                    NProgress.done();
-                    imageHolder.remove();
-                },
-                complete: function () {
-                    elementModal.removeClass('has-error');
-                    elementModal.arcticmodal('close');
-                }
-            });
-        }
-    });
-
-    // product image deleting
-    $('#productImages .delete-icon').on('click', function(){
-        if (confirm("Удалить изображение?")) {
-            var imageHolder = $(this).closest('.product-image-holder');
-            var imageId = imageHolder.find('.product-image').data('id');
-            var productId = imageHolder.find('.product-image').data('product-id');
-            $.ajax({
-                type: "POST",
-                url: ajaxUrl + "core/product/delete-image",
-                data: {
-                    "imageId": imageId,
-                    "productId": productId,
-                    "_csrf": csrfToken
-                },
-                dataType: 'json',
-                beforeSend: function () {
-                    NProgress.start();
-                },
-                success: function (data) {
-                    NProgress.done();
-                    imageHolder.remove();
-                },
-                complete: function () {
-                    elementModal.removeClass('has-error');
-                    elementModal.arcticmodal('close');
-                }
-            });
-        }
-    });
 
     // block tile
     $('#tileChangeBlock').on('click', function(){
@@ -114,7 +53,7 @@ $(function(){
             });
             $.ajax({
                 type: "POST",
-                url: ajaxUrl + "core/ajax/save-dashboard",
+                url: "/backend/web/index.php?r=core/ajax/save-dashboard",
                 data: {"info": JSON.stringify(arr), "_csrf": csrfToken},
                 dataType: 'json',
                 beforeSend: function(){
@@ -246,87 +185,6 @@ $(function(){
     var allMenuNodes = $('#allMenuNodes');
     var elementId = $('#elementId');
 
-    menuBuilder.sortable({
-        items: '.root',
-        handle: '.root-sorting',
-        update: function(event, ui) {
-            sorting = {};
-            menuBuilder.find('.root').each(function(i, e){
-                sorting[i] = $(e).data('id');
-            });
-            $.ajax({
-                type: "POST",
-                url: ajaxUrl + "core/menu/root-sorting",
-                data: {
-                    "sorting": sorting,
-                    "_csrf": csrfToken
-                },
-                dataType: 'json',
-                beforeSend: function () {
-                    NProgress.start();
-                },
-                success: function (data) {
-                    NProgress.done();
-                    // TODO: обновление меню после добавления элемента
-                },
-                complete: function () {
-                    elementModal.removeClass('has-error');
-                    elementModal.arcticmodal('close');
-                }
-            });
-        }
-    });
-
-    menuBuilder.on('click', '.expand', function(){
-        var li = $(this).closest('li.root');
-        li.toggleClass('active');
-        if (li.hasClass('active')) {
-            $(this).text('arrow_drop_up');
-            li.find('ul').removeClass('hidden');
-        } else {
-            $(this).text('arrow_drop_down');
-            li.find('ul').addClass('hidden');
-        }
-    });
-
-    menuBuilder.on('click', '.settings', function(){
-        var itemId = $(this).data('id');
-        elementId.val(itemId);
-        resetMenuFields();
-        elementModal.find('.has-error').removeClass('has-error');
-        $.ajax({
-            type: 'POST',
-            url: ajaxUrl + 'core/menu/edit-element',
-            data: {"itemId": itemId, "_csrf": csrfToken},
-            dataType: 'json',
-            beforeSend: function () {
-                NProgress.start();
-            },
-            success: function(data) {
-                NProgress.done();
-                allMenuNodes.html(data.menuItems);
-                nodeSorting.show();
-                nodeSorting.html(data.subElements);
-                nodeSorting.sortable({
-                    items: '.element'
-                });
-                allMenuNodes.val(data.current.parentId);
-                elementLink.val(data.current.link);
-                elementTitle.val(data.current.name);
-                allCategories.val(data.current.categoryId);
-                elementModal.find('input[name="isCategory"][value="' + data.current.isCategory + '"]').prop('checked', true);
-                if (data.current.isCategory == 1) {
-                    allCategories.show();
-                    elementLink.closest('.input-group').hide();
-                } else {
-                    allCategories.hide();
-                    elementLink.closest('.input-group').show();
-                }
-                elementModal.arcticmodal();
-            }
-        });
-    });
-
     elementModal.find('input[name="isCategory"]').on('change', function(){
         var isCategory = this.value;
         resetMenuFields();
@@ -345,32 +203,10 @@ $(function(){
         elementTitle.val(optionSelected.data('title'));
     });
 
-    $('#addElement').on('click', function(){
-        resetMenuFields();
-        elementId.val(0);
-        elementModal.find('.has-error').removeClass('has-error');
-        $.ajax({
-            type: 'POST',
-            url: ajaxUrl + 'core/menu/new-element',
-            data: {"_csrf": csrfToken},
-            dataType: 'json',
-            beforeSend: function () {
-                NProgress.start();
-            },
-            success: function(data) {
-                NProgress.done();
-                nodeSorting.hide();
-                allMenuNodes.html(data.menuItems);
-                elementModal.arcticmodal();
-            }
-        });
-    });
-
     $('#saveElement').on('click', function(){
         elementModal.find('.has-error').removeClass('has-error');
         var error = false;
         var id = 0;
-        var parentId = allMenuNodes.val();
         var name = elementTitle.val().trim();
         var categoryId = allCategories.val();
         var isCategory = elementModal.find('input[name="isCategory"]:checked').val();
@@ -396,32 +232,23 @@ $(function(){
             });
         }
         if (!error) {
-            $.ajax({
-                type: "POST",
-                url: ajaxUrl + "core/menu/save-element",
-                data: {
+            $.post(
+                yii.tree.controllerUrl + '/append-to',
+                {
                     "name": name,
+                    modelClass: yii.tree.modelClass,
+                    parentPk: $('#parentId').val(),
                     "link": elementLink.val().trim(),
-                    "parentId": parentId,
                     "isCategory": isCategory,
                     "categoryId": categoryId,
-                    "elementId": elementId.val(),
-                    "sorting": sorting,
                     "_csrf": csrfToken
                 },
-                dataType: 'json',
-                beforeSend: function () {
-                    NProgress.start();
-                },
-                success: function (data) {
-                    NProgress.done();
-                    // TODO: обновление меню после добавления элемента
-                },
-                complete: function () {
-                    elementModal.removeClass('has-error');
+                function(data) {
+                    $('#newMenuElement').jstree('set_text', $('#newMenuElement'), name);
+                    $('#newMenuElement').jstree('set_id', $('#newMenuElement'), data.pk);
                     elementModal.arcticmodal('close');
                 }
-            });
+            );
         }
     });
 
@@ -431,7 +258,7 @@ $(function(){
     $('#addProduct').on('click', function(){
         $.ajax({
             type: "POST",
-            url: ajaxUrl + "core/order/get-product-line",
+            url: "/backend/web/index.php?r=core/order/get-product-line",
             data: {
                 "_csrf": csrfToken
             },

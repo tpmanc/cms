@@ -14,6 +14,9 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'defaultRoute' => '/core/dashboard/index',
     'bootstrap' => ['log'],
+    'controllerMap' => [
+        'tree' => 'tpmanc\tree\controllers\TreeController',
+    ],
     'components' => [
         'user' => [
             'identityClass' => 'common\models\User',
